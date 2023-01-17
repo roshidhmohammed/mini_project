@@ -1,0 +1,90 @@
+<%-include('../layouts/adminheader.ejs')%>
+
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Dashboard</h4>
+            <p class="category">24 Hours performance</p>
+            <hr style="color:black;">
+        </div>
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <table width="100%" class="table" style="color: black;">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Action</th>
+
+                </tr>
+                <br>
+                <% if(users.length>0) {
+                    for(i=0;i<users.length;i++) { %>
+                        <tr>
+                            <td>
+                                <%= users[i].name%>
+                            </td>
+                            <td>
+                                <%= users[i].email%>
+                            </td>
+                            <td>
+                                <%= users[i].mobile%>
+                            </td>
+                            <td>
+                                <% if(users[i].is_verified===0) { %>
+                                    <button type="button" ><a
+                                            href="/admin/block-user?id=<%=users[i]._id%>"
+                                            style="color: green; text-decoration: none;"
+                                            class="btn btn-outline-success"></a>Show</button>
+                                    <% }else{ %>
+                                        <br>
+
+                                        <button type="button" ><a
+                                                href="/admin/unblock-user?id=<%=users[i]._id%>"
+                                                style="color: red; text-decoration: none;"
+                                                class=" delete btn btn-outline-danger"></a>Hide</button>
+                                        <% } %>
+                            </td>
+
+
+                        </tr>
+                        <% } %>
+                            <% }else{ %>
+                                <tr>
+                                    <td colspan="5">users not found</td>
+
+                                </tr>
+                              <% } %>
+
+            </table>
+        </div>
+    </div>
+</div>  
+
+<script>
+    $(".delete").on("click", function(e) {
+    e.preventDefault()
+    var self = $(this)
+    Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      // 'Deleted!',
+      // 'Your file has been deleted.',
+      // 'success'
+      location.href =self.attr('href')
+    )
+  }
+})
+    })
+  </script>
+
+
+<%- include("../layouts/adminfooter.ejs") %>

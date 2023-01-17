@@ -1,0 +1,98 @@
+<%- include('../layouts/userheader.ejs') %>
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">User Profile</h1>
+        <div class="d-inline-flex">
+            <h2 class="m-0"><a href="">welcome </a></h2>
+            
+        </div>
+    </div>
+</div>
+
+<!-- dropdown button starts -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="bg-secondary text-dark">
+                    <!-- <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Actions</th>
+                    </tr> -->
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User Details</a>
+                        <div class="dropdown-menu rounded-0 mb-5">
+                            <a href="dashboard" class="dropdown-item">User Profile</a>
+                            <a href="orders" class="dropdown-item">orders</a>
+                            <a href="address" class="dropdown-item">Address</a>
+                        </div>
+                    </div>
+                    <div class="container-fluid pt-5">
+                        <div class="row px-xl-5">
+                            <div class="col-lg-8">
+                                <div class="mb-4">
+                                    <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                                </div>
+                                <form action="/address" method="post">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label>First Name</label>
+                                            <input class="form-control form-control-rounded" name="firstname" type="text" placeholder="first name" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Last Name</label>
+                                            <input class="form-control" type="text" name="lastname" placeholder="last name" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>E-mail</label>
+                                            <input class="form-control" type="text" name="email" placeholder="email" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Mobile No</label>
+                                            <input class="form-control" type="text" name="mobno" placeholder="mobile number" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Address Line 1</label>
+                                            <input class="form-control" type="text" name="address1" placeholder="address line 1" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Address Line 2</label>
+                                            <input class="form-control" type="text" name="address2" placeholder="address line 2" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>country</label>
+                                            <input class="form-control" type="text" name="country" placeholder="country" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>City</label>
+                                            <input class="form-control" type="text" name="city" placeholder="city" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>State</label>
+                                            <input class="form-control" type="text" name="state" placeholder="state" required>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>ZIP Code</label>
+                                            <input class="form-control" type="text"name="zip" placeholder="zipcode" required>
+                                        </div>
+                                        <input type="submit" value="submit">
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- dropdown button ends -->
+
+<%- include('../layouts/userfooter.ejs') %>
+
+

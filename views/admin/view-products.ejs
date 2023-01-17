@@ -1,0 +1,88 @@
+<%- include("../layouts/adminheader.ejs") %>
+
+  <section>
+    <div class="container">
+      <div class="row mt-4 ">
+        <h1 style="text-align: center;">Product Details</h1>
+        <a href="/admin/add-product" class="btn btn-success ml-auto" >Add Product</a>
+      </div>
+
+    </div>
+
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Title</th>
+          <th scope="col">Category</th>
+          <th scope="col">Description</th>
+          <th>Image</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <% for(let i=1;i<=products.length;i++) { %>
+            <tr>
+              <th scope="row"><%- i %></th>
+              <td><%- products[i-1].name %></td>
+              <td><%-  products[i-1].category %></td>
+              <td><%-  products[i-1].description %></td>
+              <td><img style="width: 50px; height: 50px;" src="/banners/<%=  products[i-1].image[0] %>" alt=""></td>
+              <td>
+                <% if( products[i-1].is_available===0) { %>
+                  <button type="button"><a href="/admin/product-block?id=<%= products[i-1]._id%>"
+                      style="color: green; text-decoration: none;" class=" btn btn-outline-success"></a>show</button>
+                  <br>
+                  <% } else { %>
+                    <button type="button" ><a href="/admin/product-unblock?id=<%= products[i-1]._id%>"
+                        style="color: red; text-decoration: none;" class=" delete btn btn-outline-success"></a>hide</button>
+
+
+                    <% } %>
+
+
+              </td>
+
+            </tr>
+            <% } %>
+
+            
+
+
+      </tbody>
+    </table>
+
+    </div>
+
+
+
+
+  </section>
+
+  <script>
+    $(".delete").on("click", function(e) {
+    e.preventDefault()
+    var self = $(this)
+    Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      // 'Deleted!',
+      // 'Your file has been deleted.',
+      // 'success'
+      location.href =self.attr('href')
+    )
+  }
+})
+    })
+  </script>
+
+  <%- include("../layouts/adminfooter.ejs") %>

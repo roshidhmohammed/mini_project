@@ -1,0 +1,55 @@
+<%- include('../layouts//userProfileHeader.ejs') %>
+
+<div class="profile-info col-md-9">
+          
+    <div class="panel">
+      <div class="bio-graph-heading">
+          <h1>EDIT USER DETAILS</h1>
+          <h4>Welcome<%=user.name %> </h4>
+      </div>
+
+     <div class="container-fluid pt-5">
+        <!-- <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <div class="container-fluid pt-5">
+                            <div class="row px-xl-5">  -->
+                                <div class="col-lg-8">
+                                    <div class="mb-4">
+                                        <h4 class="font-weight-semi-bold mb-4">Update User Details</h4>
+                                    </div>
+                                    <form action="/edit-user" method="post">
+                                        <div class="row">
+                                            <div class="col-md-6 form-group">
+                                                <label>Name</label>
+                                                <input class="form-control form-control-rounded" name="name"
+                                                    type="text" placeholder="enter your name" required>
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label>E-mail</label>
+                                                <input class="form-control" type="text" name="email" placeholder="enter your email"
+                                                    required>
+                                            </div>
+                                            <div class="col-md-6 form-group mb-2">
+                                                <label>Mobile No</label>
+                                                <input class="form-control" type="text" name="mobno"
+                                                    placeholder=" enter mobile number" required>
+                                            </div>
+                                        </div>
+                                        <button value="submit" class="btn btn-success">Submit</button>
+                                    </form>
+                                </div>
+                            <!-- </div>
+                        </div>
+                    </thead>
+                </table>
+            </div>
+        </div>-->
+    </div>
+     </div>
+ </div> 
+</div>
+</div>
+
+<%- include('../layouts/userfooter.ejs') %>

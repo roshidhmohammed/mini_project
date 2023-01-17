@@ -1,0 +1,61 @@
+<%- include('../layouts/userheader.ejs') %>
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">User Profile</h1>
+        <div class="d-inline-flex">
+            <h2 class="m-0"><a href="">welcome  <%=user.name%></a></h2>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Page Header Start -->
+
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-12 table-responsive mb-5">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="bg-secondary text-dark">
+                    
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu rounded-0 mb-5">
+                            <a href="dashboard" class="dropdown-item">User Profile</a>
+                            <a href="orders" class="dropdown-item">orders</a>
+                            <a href="address" class="dropdown-item">Address</a>
+                        </div>
+                    </div>
+                    <tr>
+                        <th>Order Id</th> </th>
+                        <th>Time</th>
+                        <th>Payment</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    <% for(let key of order) { %>
+                    <tbody class="align-middle">
+
+                        <tr style="color: black;">
+                         
+                            <td class="align-middle"><%=key._id%></td>
+                            <td class="align-middle"><%=key.createdAt%></td>
+                            <td class="align-middle"><%=key.payment%></td>
+                            <td class="align-middle"><%=key.status%></td>
+                            <td class="align-middle"><a href="/cancel-order?id=<%=key._id%>"><button class="btn btn-sm btn-danger">Cancel Order</button></a><br><br>
+                                <a href="/orderProductDetail?id=<%=key._id%>"><button class="btn btn-sm btn-primary">View Detail</button></a></td>
+                          
+                        </tr>
+                    </tbody>
+                    <% } %>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+    
+
+
+
+<%- include('../layouts/userfooter.ejs') %>

@@ -1,0 +1,259 @@
+<% if(isLoggedin) {%>
+    <%- include("../layouts/userheader.ejs") %>
+    <% } else { %>
+        <%- include("../layouts/guestHeader.ejs") %>
+     <% } %>
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-info mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="height: 15vh;">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3">Checkout</h1>
+            <div class="d-inline-flex">
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid pt-5">
+        
+            <div class="row px-xl-5">
+                <div class="col-lg-8 table-responsive mb-5">
+                <form action="/checkout" method="post">
+                <div class="col-lg-10">
+                    <div class="mb-4">
+                        <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                        <div class="row">
+                            <% if(addSelect !=null) { %>
+
+                                <div class="col-md-6 form-group">
+                                    <label>First Name</label>
+                                    <input class="form-control" type="text" name="firstname" placeholder=""
+                                        value="<%=addSelect.firstname %>">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Last Name</label>
+                                    <input class="form-control" type="text" name="lastname" placeholder=""
+                                        value="<%= addSelect.lastname %>">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>E-mail</label>
+                                    <input class="form-control" type="text" name="email" placeholder=""
+                                        value="<%= addSelect.email %>">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Mobile No</label>
+                                    <input class="form-control" type="text" name="mobno" placeholder=""
+                                        value="<% addSelect.mobno %>">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Address Line 1</label>
+                                    <input class="form-control" type="text" name="address1" placeholder=""
+                                        value="<% addSelect.address1 %>">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Address Line 2</label>
+                                    <input class="form-control" type="text" name="address2" placeholder=""
+                                        value="<%= addSelect.address2 %>">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>country</label>
+                                    <input class="form-control" type="text" name="country" placeholder=""
+                                        value="<%= addSelect.country %>">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>City</label>
+                                    <input class="form-control" type="text" name="city" placeholder=""
+                                        value="<%= addSelect.city %>">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>State</label>
+                                    <input class="form-control" type="text" name="state" placeholder=""
+                                        value="<%= addSelect.state %>">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>ZIP Code</label>
+                                    <input class="form-control" type="text" name="zip" placeholder=""
+                                        value="<%= addSelect.zip %>">
+                                </div>
+                                <!--  <div class="col-md-12 form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="newaccount">
+                            <label class="custom-control-label" for="newaccount">Create an account</label>
+                        </div> -->
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="shipto">
+                                <!-- <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label> -->
+                            </div>
+                        </div>
+                        <% } else { %>
+
+                            <h3>no address found</h3>
+
+                            <% } %>
+                    </div>
+                </div>
+            </form>
+
+                <!-- <div class="collapse mb-4" id="shipping-address">
+                <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>First Name</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Last Name</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>E-mail</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Mobile No</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address Line 1</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address Line 2</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Country</label>
+                        <select class="custom-select">
+                            <option selected>United States</option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>City</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>State</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>ZIP Code</label>
+                        <input class="form-control" type="text" placeholder="">
+                    </div>
+                </div>
+            </div> -->
+            </div>
+            
+            
+            <div class="col-lg-3">
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                    </div>
+                    <% if(id) { %>
+                        <div class="card-body">
+                            <h5 class="font-weight-medium mb-3">Products</h5>
+                            <% for(let key of cartProducts.item) {%>
+                                <div class="d-flex justify-content-between">
+                                    <p>
+                                        <%= key.productId.name %>
+                                    </p>
+                                    <p>
+                                        <%= key.qty %>
+                                    </p>
+                                    <p>
+                                        <%= key.productId.price*key.qty %>
+                                    </p>
+
+                                </div>
+                                <% } %>
+
+                                    <!-- <div class="d-flex justify-content-between">
+                        <p>Colorful Stylish Shirt 2</p>
+                        <p>$150</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p>Colorful Stylish Shirt 3</p>
+                        <p>$150</p>
+                    </div> -->
+                                    <hr class="mt-0">
+                                    <div class="d-flex justify-content-between mb-3 pt-1">
+                                        <h6 class="font-weight-medium">Subtotal</h6>
+                                        <h6 class="font-weight-medium">
+                                            <%= cartProducts.totalPrice %>
+                                        </h6>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="font-weight-medium">Shipping</h6>
+                                        <h6 class="font-weight-medium">free</h6>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <% if(offer) { %>
+                                        <h6 class="font-weight-medium">Coupon</h6>
+                                        <h6 class="font-weight-medium"><%= offer.name %></h6>
+                                        <% }%>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <% if(offer) { %>
+                                        <h6 class="font-weight-medium">discount</h6>
+                                        <h6 class="font-weight-medium"><%= cartProducts.totalPrice-couponTotal %></h6>
+                                        <% }%>
+                                    </div>
+
+                        </div>
+                        <% } %>
+                            <div class="card-footer border-secondary bg-transparent">
+                                <div class="d-flex justify-content-between mt-2">
+                                    <h5 class="font-weight-bold">Total</h5>
+                                    <h5 class="font-weight-bold">
+                                        <%= couponTotal %>
+                                    </h5>
+                                </div>
+                            </div>
+                </div>
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Payment</h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" value="paypal"
+                                    id="paypal">
+                                <label class="custom-control-label" for="paypal">Paypal</label>
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" value="COD"
+                                    id="directcheck">
+                                <label class="custom-control-label" for="directcheck">CASH ON DELIVERY</label>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" value="Razorpay"
+                                    id="banktransfer">
+                                <label class="custom-control-label" for="banktransfer">Razor Pay</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
+                    </div>
+
+                </div>
+            </div>
+         </div>
+       
+    </div>
+</div>
+    <!-- Checkout End -->
+
+    <%-include("../layouts/userfooter.ejs") %>

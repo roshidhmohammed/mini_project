@@ -1,0 +1,56 @@
+<%- include('../layouts/userheader.ejs') %>
+
+<!-- Page Header Start -->
+<div class="container-fluid bg-info mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="height: 20vh">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">User Profile</h1>
+        <div class="d-inline-flex">
+            <h3 class="m-0">Welcome  <%=user.name%></h3>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Page Header Start -->
+
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="bg-secondary text-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Actions</th>
+                    </tr>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            <a href="dashboard" class="dropdown-item">User Profile</a>
+                            <a href="orders" class="dropdown-item">orders</a>
+                            <a href="address" class="dropdown-item">Address</a>
+                        </div>
+                    </div>
+                    <tbody class="align-middle">
+
+                    <tr style="color: black;">
+                     
+                        <td class="align-middle"><%=user.name%></td>
+                        <td class="align-middle"><%=user.email%></td>
+                        <td class="align-middle"><%=user.mobile%></td>
+                        <td class="align-middle"><a href="/edit-user?id=<%= user._id %>"><button class="btn btn-sm text-secondary p-0">Edit</button></a></td>
+                      
+                    </tr>
+                    </tbody>
+
+
+
+                </thead>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<%- include('../layouts/userfooter.ejs') %>

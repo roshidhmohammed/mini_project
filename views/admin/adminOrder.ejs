@@ -1,0 +1,260 @@
+<%- include("../layouts/adminheader.ejs") %>
+
+<section>
+    <!-- <div class="container">
+      <div class="row mt-4 ">
+        <h1 style="text-align: center;">Order Management</h1>
+        <a href="/admin" class="btn btn-success ml-auto" >logout</a>
+        <a href="/admin/adminOrder?id=ALL" class="btn btn-success ml-auto" >All Orders</a>
+        <a href="/admin/adminOrder?id=CONFIRMED" class="btn btn-success ml-auto" >Confirmed Orders</a>
+        <a href="/admin/adminOrder?id=DELIVERED" class="btn btn-success ml-auto" >Deleiverd Orders</a>
+      </div>
+
+    </div> -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="work-category py-3 px-3 ">
+                <div class="d-flex flex-column align-items-center">
+                    <h4 class="mt-2">order Management</h4>
+                </div>
+                <div class="d-flex; ">
+                    
+                        <a style="font-weight: bold; border-radius: 10px ;width: 150px;" href="/admin/adminOrder?id=ALLL"
+                            class=" btn btn-primary ">
+                            <span>All Orders</span>
+                        </a>
+                    
+                    
+                        <a style="font-weight: bold; border-radius: 10px ;width: 150px;" href="/admin/adminOrder?id=CONFIRMED"
+                            class=" btn btn-primary">
+                            <span>Confirmed Orders</span>
+                        </a>
+                    
+                    
+                        <a style="font-weight: bold; border-radius: 10px ;width: 150px;" href="/admin/adminOrder?id=DELIVERED"
+                            class="btn btn-primary">
+                            Delivered Orders
+                        </a>
+
+                        <a style="font-weight: bold; border-radius: 10px ;width: 150px;" href="/admin/exportUsers"
+                            class=" btn btn-primary ">
+                            <span>Export Orders</span>
+                        </a>
+                    
+                </div>
+                <br>
+                <!-- categorey table -->
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <% if(id=='CONFIRMED' ){ %>
+                                <div class="col-md-11">
+                                    <div class="card">
+                                        <div class="content table-responsive ">
+                                            <table id="pdfTable"
+                                                class="table text-responsive align-middle table-striped table-hover mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">SI NO</th>
+                                                        <th scope="col">Order Id</th>
+                                                        <th scope="col">User Name</th>
+                                                        <th scope="col">Time</th>
+                                                        <th scope="col">Mode</th>
+                                                        <th scope="col">Total Price</th>
+                                                        <th scope="col">Status</th>
+                                                        <th scope="col">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% if( order.length> 0){ %>
+                                                        <% for(let i=1;i <=order.length; i++){ %>
+                                                            <% if(order[i-1].status=="Confirmed" ){ %>
+                                                                <tr>
+                                                                    <th scope="row">
+                                                                        <%= i %>
+                                                                    </th>
+                                                                    <td>
+                                                                        <%= order[i-1]._id %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= order[i-1].userId.name %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= order[i-1].createdAt.toDateString()
+                                                                            %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= order[i-1].payment %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= order[i-1].products.totalPrice %>
+                                                                    </td>
+                                                                    <td class="text-success">
+                                                                        <%= order[i-1].status %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a style="font-weight: bold; border-radius: 10px ;width: 130px;" href="/admin/adminCancelOrder?id=<%= order[i-1]._id %>"
+                                                                            class="btn btn-danger ">Cancel
+                                                                            Order</a>
+                                                                        <a style="font-weight: bold; border-radius: 10px ;width: 130px;" href="/admin/adminDeliveredOrder?id=<%= order[i-1]._id %>"
+                                                                            class="btn btn-primary ">Deliver
+                                                                            Order</a>
+                                                                            <input type="text" value="<%= order[i-1]._id %>">
+                                                                    </td>
+                                                                </tr>
+                                                                <% }}}else{ %>
+                                                                    <tr>
+                                                                        <td colspan="5">Orders Not Found</td>
+                                                                    </tr>
+                                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <% }else if(id=='DELIVERED' ){ %>
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                            <div class="bg-light rounded h-100 p-4">
+                                                <table id="pdfTable"
+                                                    class="table text-responsive align-middle table-striped table-hover mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">SI NO</th>
+                                                            <th scope="col">Order Id</th>
+                                                            <th scope="col">User Name</th>
+                                                            <th scope="col">Time</th>
+                                                            <th scope="col">Mode</th>
+                                                            <th scope="col">Total Price</th>
+                                                            <th scope="col">Status</th>
+                                                            <th scope="col">Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% if( order.length> 0){ %>
+                                                            <% for(let i=1;i <=order.length; i++){ %>
+                                                                <% if(order[i-1].status=="Delivered" ){ %>
+                                                                    <tr>
+                                                                        <th scope="row">
+                                                                            <%= i %>
+                                                                        </th>
+                                                                        <td>
+                                                                            <%= order[i-1]._id %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= order[i-1].userId.name %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= order[i-1].createdAt.toDateString()
+                                                                                %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= order[i-1].payment %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= order[i-1].products.totalPrice
+                                                                                %>
+                                                                        </td>
+                                                                        <td class="text-success">
+                                                                            <%= order[i-1].status %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a  style="font-weight: bold; border-radius: 10px ;width: 130px;" href="/admin/adminCancelOrder?id=<%= order[i-1]._id %>"
+                                                                                class="btn btn-danger">Cancel
+                                                                                Order</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% }}}else{ %>
+                                                                        <tr>
+                                                                            <td colspan="5">Orders Not Found
+                                                                            </td>
+                                                                        </tr>
+                                                                        <% } %>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <% }else{ %>
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                                <div class="bg-light rounded h-100 p-4">
+                                                    <table id="pdfTable"
+                                                        class="table text-responsive align-middle table-striped table-hover mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">SI NO</th>
+                                                                <th scope="col">Order Id</th>
+                                                                <th scope="col">User Name</th>
+                                                                <th scope="col">Time</th>
+                                                                <th scope="col">Mode</th>
+                                                                <th scope="col">Total Price</th>
+                                                                <th scope="col">Status</th>
+                                                                <th scope="col">Actions</th>
+                                                                <th scope="col">Details</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% if( order.length> 0){ %>
+                                                                <% for(let i=1;i <=order.length; i++){ %>
+                                                                    <tr>
+                                                                        <th scope="row">
+                                                                            <%= i %>
+                                                                        </th>
+                                                                        <td>
+                                                                            <%= order[i-1]._id %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= order[i-1].userId.name %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= order[i-1].createdAt.toDateString()
+                                                                                %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= order[i-1].payment %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= order[i-1].products.totalPrice
+                                                                                %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%= order[i-1].status %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a style="font-weight: bold; border-radius: 10px ;width: 130px;" href="/admin/adminCancelOrder?id=<%= order[i-1]._id %>"
+                                                                                class="btn btn-danger">Cancel
+                                                                                Order</a>
+                                                                            <a style="font-weight: bold; border-radius: 10px ;width: 130px;" href="/admin/adminConfirmOrder?id=<%= order[i-1]._id %>"
+                                                                                class="btn btn-success ">Confirm
+                                                                                Order</a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a style="font-weight: bold; border-radius: 10px ;width: 130px;" href="/admin/adminOrderView?id=<%= order[i-1]._id %>"
+                                                                                class="btn btn-info">View
+                                                                                Order</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% }}else{ %>
+                                                                        <tr>
+                                                                            <td colspan="5">Orders Not Found
+                                                                            </td>
+                                                                        </tr>
+                                                                        <% } %>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <% } %>
+
+
+
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- </div>
+        </div>
+    </div> -->
+
+</section>
+
+<%- include("../layouts/adminfooter.ejs") %>

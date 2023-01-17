@@ -1,0 +1,26 @@
+<%- include("../layouts/userheader.ejs") %>
+
+<section>
+    <div class="container mt-5">
+      <div class="row">
+       <% for(let x of productshop) { %>
+          <div class="col-md-4 mb-5">
+            <div class="card" style="width: 18rem;">
+              <div class="m-auto">
+                <img style="width:280px; height:275px; " src="/images/<%= x.image %>" class="card-img-top"
+                  alt="Card image cap">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><%- x.name %></h5>
+                <p class="card-text"><%- x.description %></p>
+                <p class="card-text">Price : ₹<%- x.price %></p>
+                <a href="#" class="btn btn-primary">Add to cart</a>
+              </div>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+</section>
+
+<%- include("../layouts/userfooter.ejs") %>

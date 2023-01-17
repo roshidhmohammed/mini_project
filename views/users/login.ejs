@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="description" content="Automates Accounting" />
+  <meta name="keywords" content="E-Ledger System, Tesla online bill, E-way Online, Online Billing, Hayatt online bill">
+  <meta name="author" content="Tabassum Khan">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <meta charset="utf-8">
+    <title>EShopper - Bootstrap Shop Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--img zoom-->
+    <link type="text/css" rel="stylesheet" href="magiczoom/magiczoom.css" />
+    <script type="text/javascript" src="magiczoom/magiczoom.js"></script>
+    <!--bootstrap-->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <title> Login Page </title>
+
+  <!--=====================================================================================================-->
+
+  <link rel="stylesheet" type="text/css" href="css/loginStyle.css"> <!-- Login CSS -->
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- FontAwesome CSS -->
+  <!--script src="js/login.js"></script> JS file -->
+
+</head>
+
+<body>
+    <!-- Topbar Start -->
+    <div class="container-fluid">
+        <!-- <div class="row bg-secondary py-2 px-xl-5"> 
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark" href="">FAQs</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark" href="">Help</a>
+                    <span class="text-muted px-2">|</span>
+                    <a class="text-dark" href="">Support</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center">
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a class="text-dark pl-2" href="">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div> -->
+        <div class="row align-items-center py-3 px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold; text-dark"><span
+                            class="text-dark font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                </a>
+            </div>
+            <div class="col-lg-6 col-6 text-left">
+                <form action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for products">
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-transparent text-dark">
+                                <i class="fa fa-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 col-6 text-right">
+                <a href="/wishlist" class="btn border">
+                    <i class="fas fa-heart text-dark"></i>
+                    <span class="badge">0</span>
+                </a>
+                <a href="/cart" class="btn border">
+                    <i class="fas fa-shopping-cart text-dark"></i>
+                    <span class="badge">0</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <div class="container-fluid mb-5">
+        <div class="row border-top px-xl-12">
+            <!-- <div class="col-lg-3 d-none d-lg-block">
+                <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
+                    data-toggle="collapse" href="#navbar-vertical"
+                    style="height: 65px; margin-top: -1px; padding: 0 30px;">
+                    <h6 class="m-0">Categories</h6>
+                    <i class="fa fa-angle-down text-dark"></i>
+                </a>
+                <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
+                    id="navbar-vertical">
+                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link" data-toggle="dropdown">Dresses <i
+                                    class="fa fa-angle-down float-right mt-1"></i></a>
+                            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+                                <a href="" class="dropdown-item">Men's Dresses</a>
+                                <a href="" class="dropdown-item">Women's Dresses</a>
+                                <a href="" class="dropdown-item">Baby's Dresses</a>
+                            </div>
+                        </div>
+                        <a href="" class="nav-item nav-link">Shirts</a>
+                        <a href="" class="nav-item nav-link">Jeans</a>
+                        <a href="" class="nav-item nav-link">Swimwear</a>
+                        <a href="" class="nav-item nav-link">Sleepwear</a>
+                        <a href="" class="nav-item nav-link">Sportswear</a>
+                        <a href="" class="nav-item nav-link">Jumpsuits</a>
+                        <a href="" class="nav-item nav-link">Blazers</a>
+                        <a href="" class="nav-item nav-link">Jackets</a>
+                        <a href="" class="nav-item nav-link">Shoes</a>
+                    </div>
+                </nav>
+            </div> -->
+            <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg bg-dark navbar-light py-3 py-lg-0 px-0">
+                    <a href="" class="text-decoration-none d-block d-lg-none">
+                        <h1 class="m-0 display-5 font-weight-semi-bold "><span
+                                class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="view-product" class="nav-item nav-link active; text-light">Home</a> &nbsp;  &nbsp;
+                            <a href="shop" class="nav-item nav-link active; text-white">Shop</a>  &nbsp;  &nbsp;
+                            <!-- <a href="detail.html" class="nav-item nav-link; text-white">Shop Detail</a> -->
+                            <!-- <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle; text-white" data-toggle="dropdown">Pages</a>
+                                <div class="dropdown-menu rounded-0 m-0; bg-dark">
+                                    <a href="cart" class="dropdown-item; text-white">Shopping Cart</a>
+                                    <a href="checkout" class="dropdown-item; text-white">Checkout</a>
+                                </div>
+                            </div> -->
+                            <!-- <a href="/login" class="nav-item nav-link active; text-white">Log out</a> &nbsp;  &nbsp; -->
+                        </div>
+                        <div class="navbar-nav ml-auto py-0">
+                            <a href="/dashboard" class="nav-item nav-link active; text-white">Profile</a>  &nbsp;  &nbsp;
+                            <a href="/login" class="nav-item nav-link active; text-white">Login</a> &nbsp;  &nbsp;
+                            <a href="/register" class="nav-item nav-link active; text-white">Register</a>  &nbsp; &nbsp;
+                        </div>
+                    </div>
+                </nav>
+
+
+                <!-- <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" style="height: 700px;">
+                            <img class="img-fluid" src="/user/bannerimg/dark-haired-man-in-brown-leather-jacket.jpg" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
+                                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item" style="height: 700px;">
+                            <img class="img-fluid" src="/user/bannerimg/fashionable-man-in-hat (1).jpg" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
+                                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item" style="height: 700px;">
+                          <img class="img-fluid" src="/user/bannerimg/young-man-in-bright-fashion.jpg" alt="Image">
+                          <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                              <div class="p-3" style="max-width: 700px;">
+                                  <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                                  <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
+                                  <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                              </div>
+                          </div>
+                      </div>
+                    </div> -->
+                <!-- <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-prev-icon mb-n2"></span>
+                        </div>
+                    </a>
+                    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-next-icon mb-n2"></span>
+                        </div>
+                    </a> -->
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+
+    <!-- Featured Start -->
+    <!-- <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                    <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- Featured End -->
+
+
+    <!-- Categories Start -->
+    <!-- <div class="container-fluid pt-5">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-4 col-md-6 pb-1">
+                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Men's dresses</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 pb-1">
+                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/cat-2.jpg" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Women's dresses</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 pb-1">
+                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/cat-3.jpg" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Baby's dresses</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 pb-1">
+                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/cat-4.jpg" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Accerssories</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 pb-1">
+                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/cat-5.jpg" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Bags</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 pb-1">
+                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                    <p class="text-right">15 Products</p>
+                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                        <img class="img-fluid" src="img/cat-6.jpg" alt="">
+                    </a>
+                    <h5 class="font-weight-semi-bold m-0">Shoes</h5>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- Categories End -->
+<div class="section">
+  <div class="box mt-5" >
+
+    <div class="row login-tab ">
+      <div class="col login link" id="login-link">
+        <h4 id="login-heading"> Login</h4>
+      </div>
+      <div class="col signup link" id="signup-link">
+        <h4 id="signup-heading"> Sign Up </h4>
+      </div>
+    </div>
+
+    <!--LOGIN -->
+    <div id="login-box">
+        <%
+             if(typeof message !== 'undefined') {
+            %>
+            <h4><%= message %></h4>
+            <%
+              }
+            %>
+      <form action="/login"  method="post">
+        <div class="form-group">
+          <input type="text" name="email" placeholder="enter the email"  />
+          <br>
+          <label for="username"> </label>
+        </div>
+        <div class="form-group">
+          <input type="password" id="login-pass" name="password" placeholder="enter the password" />
+          <i toggle="#login-pass" class="fa fa-eye toggle-password" id="toggle-login-pass"></i>
+          <label for="password"> Password </label>
+        </div>
+        <div class="row remember-forgot-tab">
+          <!-- <div class="col checkbox">
+            <label><input type="checkbox" name="remember-me" checked="checked" /> <span> Remember Me? </span></label>
+          </div> -->
+          <div class="col forgot-pass">
+            <label> <a href="/forgotpassword" > Forgot Password? </a> </label>
+          </div>
+        </div>
+        <button type="submit"  class="btn btn-outline-info btn-block"> Login </button>
+      </form>
+    </div> <!-- end of login-box -->
+
+    <!-- SIGNUP -->
+    <div id="signup-box">
+      <form  action="" onsubmit="return validation()" method="post" enctype="application/x-www-form-urlencoded" >
+        <div class="form-group">
+          <input type="text" name="name" placeholder="enter name"  />
+            <label for="username"> Username </label> 
+            <span id="name-error" style="color: red;"></span>
+            
+        </div>
+        <div class="form-group">
+            <input type="text" id="email" name="email" placeholder=" enter the email"  />
+            <label for="username"> email </label>
+            <span id="email-error" style="color:red;"></span> 
+          </div>
+          <div class="form-group">
+            <input type="text" id= "mno" name="mno" placeholder="enter the mobile number "  />
+             <label for="username"> mobile number </label>
+             <span id="mno-error" style="color: red;"></span>
+
+          </div>
+        <div class="form-group">
+          <input type="password" id="signup-pass" name="password" placeholder="enter the password"  />
+          <i toggle="#signup-pass" class="fa fa-eye toggle-password" id="toggle-signup-pass"></i>
+          <span id="password-error" style="color: red;"></span>
+        </div>
+        <div class="form-group">
+          <input type="password" id="confirm-pass" name="confpassword" placeholder="confirm your password"  />
+          <i toggle="#confirm-pass" class="fa fa-eye toggle-password" id="toggle-confirm-pass"></i> 
+          <span id="confpassword-error" style="color: red;"></span>
+         
+        </div>
+        
+        <button type="submit" class="btn btn-outline-info btn-block"> Create Account </button>
+      </form>
+    </div> <!-- end of signup-box -->
+
+  </div>
+</div>
+
+
+<!--validation-->
+
+<script type="text/javascript">
+    function validation() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const mno = document.getElementById('mno').value;
+    const password = document.getElementById('password').value;
+    const confpassword = document.getElementById('confpassword').value;
+
+    const userCheck =  /^[A-Za-z. ]{3,30}$/ ;
+    const emailCheck = /^[ a-z A-Z 0-9_\-\.]+[@]+[a-z]+[\.][a-z]{2,3}$/;
+    const mnoCheck = /^[0-9]{10}$/ ;
+    const passwordCheck = /^[A-Z]+[a-z]+[0-9]+[@#]+$/;
+
+    if( userCheck.test(name)) {
+        
+        document.getElementById("name-error").innerHTML = ""
+        
+    } else {
+      document.getElementById("name-error").innerHTML = "please enter name" ;
+      return false;
+
+    }
+
+    if( emailCheck.test(email) ) {
+        
+        document.getElementById("email-error").innerHTML = ""
+       
+    }else {
+      document.getElementById("email-error").innerHTML = "please enter valid email"
+      return false;
+    }
+
+    if(mnoCheck.test(mno)) {
+        
+        document.getElementById("mno-error").innerHTML = ""
+        
+    } else {
+      document.getElementById("mno-error").innerHTML = "please enter 10 digit mobile number"
+      return false;
+    }
+
+    if(passwordCheck.test(password) ) {
+        
+        document.getElementById("password-error").innerHTML = ""
+        
+    } else {
+      document.getElementById("password-error").innerHTML = "please enter valid password"
+      return false;
+    }
+
+     if(confpassword.match(password)) {
+       document.getElementById("confpassword-error").innerHTML = ""
+     }else {
+       document.getElementById("confpassword-error").innerHTML = "password does not match"
+       return false;
+     }
+
+   
+   
+}
+</script>
+  
+
+  <script>
+    // hide signup form when website first loads
+    $(document).ready(function() {
+      $('#signup-box').hide();
+      $('#login-link').css({
+        "color": "#ccc",
+        "border": "1px solid #59B4B4"
+      });
+    });
+
+    /***********************************************************************************************************************/
+    //show signup and hide login after on clicking signup link
+    $('#signup-link').click(function() {
+      $('#login-box').hide(500, function() {
+        $('#signup-box').show(500); //show signup box
+        linkStyleOnClick($('#signup-link')); //CSS on click of signup link
+        linkStyleOffClick($('#login-link')) //change the color and border of login link to its original color
+        $('#login-form').trigger("reset"); //Reset login form once signup is clicked
+        resetEyeToggle($('#toggle-login-pass')); //Resetting login eye toggle
+      });
+    });
+
+    //show login and hide signup on clicking login link
+    $('#login-link').click(function() {
+      $('#signup-box').hide(500, function() {
+        $('#login-box').show(500); //show login box
+        linkStyleOnClick($('#login-link')); //CSS on click of login link
+        linkStyleOffClick($('#signup-link')) //change the color and border of signup link to its original color
+        $('#signup-form').trigger("reset"); //Reset signup form once login is clicked
+        //Resetting signup pass and confirm eye toggle
+        resetEyeToggle($('#toggle-signup-pass'));
+        resetEyeToggle($('#toggle-confirm-pass'));
+      });
+    });
+
+    function linkStyleOnClick(link) {
+      link.css({
+        "color": "#ccc",
+        "border": "1px solid #59B4B4"
+      });
+    }
+
+    function linkStyleOffClick(link) {
+      link.css({
+        "color": "#59B4B4",
+        "border": "none"
+      });
+    }
+
+    //Resetting Eye Toggle on leaving the particular box
+    function resetEyeToggle(eye) {
+      if (eye.hasClass('fa-eye-slash')) {
+        eye.removeClass('fa-eye-slash');
+        eye.addClass('fa-eye');
+        var input = $(eye.attr("toggle"));
+        input.attr("type", "password");
+      }
+    }
+
+    /***********************************************************************************************************************/
+    //changing color hovering on login-link and returning back to its original color if its in signup-box
+    $(document).ready(function() {
+      $('.login-tab').find('.col').hover(function() {
+        $(this).css("color", "#ccc");
+      }, function() {
+        // out hover function --- change the color if only that box is not visible
+        if ($('#login-box').is(':hidden')) {
+          $('#login-link').css("color", "#59B4B4");
+        }
+
+        if ($('#signup-box').is(':hidden')) {
+          $('#signup-link').css("color", "#59B4B4");
+        }
+      });
+    });
+
+    /***********************************************************************************************************************/
+    //Toggle eye icon of login pass
+    $('#toggle-login-pass').click(function() {
+      toggleEye($(this));
+    });
+
+    //Toggle eye icon of signup pass
+    $('#toggle-signup-pass').click(function() {
+      toggleEye($(this));
+    });
+
+    //Toggle eye icon of confirm pass
+    $('#toggle-confirm-pass').click(function() {
+      toggleEye($(this));
+    });
+
+    //function TO toggle EYE ICON of passwords
+    function toggleEye(eye) {
+      eye.toggleClass("fa-eye fa-eye-slash");
+      var input = $(eye.attr("toggle"));
+      if (eye.hasClass("fa-eye-slash")) {
+        input.attr("type", "text");
+      } else {
+        input.attr("type", "password");
+      }
+    }
+  </script>
+
+<%- include("../layouts/userfooter.ejs") %>
+
+
