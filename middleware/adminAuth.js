@@ -23,7 +23,7 @@ const isLogout = async(req,res,next)=>{
         adminSession = req.session
         if(adminSession.adminId){
             isAdminLoggedin = true
-            res.redirect('/admin/login')
+            res.redirect('/admin')
         }
         next()
 

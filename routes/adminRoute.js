@@ -48,26 +48,26 @@ const adminController = require("../controllers/adminController");
 
 // const upload = multer({storage:storage});
 
-admin_route.get('/', adminController.loadLogin);
+admin_route.get('/',adminMiddleware.isLogout, adminController.loadLogin);
 
 admin_route.post('/', adminController.verifyLogin);
 
 
 
-admin_route.get('/home',adminController.LoadDashboard);
+admin_route.get('/home',adminMiddleware.isLogin,adminController.LoadDashboard);
 
-admin_route.get('/logout', adminController.logout);
+admin_route.get('/logout',adminMiddleware.isLogin, adminController.logout);
 
-admin_route.get('/dashboard', adminController.adminDashboard);
+admin_route.get('/dashboard',adminMiddleware.isLogin, adminController.adminDashboard);
 
 admin_route.get('/block-user', adminController.blockUser);
 
 admin_route.get('/unblock-user', adminController.unBlockUser);
 
-admin_route.get('/view-products', adminController.viewproducts);
+admin_route.get('/view-products',adminMiddleware.isLogin, adminController.viewproducts);
 
 
-admin_route.get('/add-product', adminController.addproduct);
+admin_route.get('/add-product',adminMiddleware.isLogin, adminController.addproduct);
 // admin_route.post('/add-product',multer.upload.array('upload_file').adminController.insertProduct)
 
  
@@ -76,34 +76,34 @@ admin_route.post('/add-product',multer.upload.array('uploaded_file'),adminContro
 
 
 
-admin_route.get('/view-product', adminController.viewproducts)
+// admin_route.get('/view-product', adminController.viewproducts)
 
 admin_route.get('/product-block', adminController.productBlock);
 admin_route.get('/product-unblock', adminController.productUnblock);
 
-admin_route.get('/admin-category', adminController.viewCategory);
-admin_route.get('/add-category', adminController.addCategory);
+admin_route.get('/admin-category',adminMiddleware.isLogin, adminController.viewCategory);
+admin_route.get('/add-category',adminMiddleware.isLogin, adminController.addCategory);
 admin_route.post('/add-category',adminController.insertCategory)
 
 
 admin_route.get('/admin-category-block', adminController.categoryBlock);
 admin_route.get('/admin-category-unblock',adminController.categoryUnblock);
 
-admin_route.get('/admin-offer',adminController.adminLoadOffer);
+admin_route.get('/admin-offer',adminMiddleware.isLogin,adminController.adminLoadOffer);
 admin_route.post('/admin-offer',adminController.adminAddOffer);
 
 
-admin_route.get('/adminOrder',adminController.adminViewOrder);
+admin_route.get('/adminOrder',adminMiddleware.isLogin,adminController.adminViewOrder);
 admin_route.get('/adminCancelOrder',adminController.adminCancelOrder);
 admin_route.get('/adminConfirmOrder',adminController.adminConfirmOrder);
 admin_route.get('/adminDeliveredOrder',adminController.adminDelieveredOrder);
 admin_route.get('/adminOrderView', adminController.adminOrderDetails);
 
-admin_route.get('/editcategory', adminController.editCategory)
-admin_route.post('/edit-category/:id', adminController.updateCategory)
+admin_route.get('/editcategory',adminMiddleware.isLogin, adminController.editCategory)
+admin_route.post('/edit-category/:id',adminController.updateCategory)
 
 
-admin_route.get('/loadBanners',adminController.getBanners)
+admin_route.get('/loadBanners',adminMiddleware.isLogin,adminController.getBanners)
 admin_route.post('/loadBanners',multer.upload.array('bannerImage',2),adminController.addBanner)
 admin_route.get('/currentBanner',adminController.currentBanner)
 

@@ -96,7 +96,7 @@
                             <% } %>
                     </div>
                 </div>
-            </form>
+            <!-- </form> -->
 
                 <!-- <div class="collapse mb-4" id="shipping-address">
                 <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
@@ -229,14 +229,21 @@
                                 <label class="custom-control-label" for="paypal">Paypal</label>
                             </div>
                         </div> -->
-                        <div class="form-group">
+                        
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" name="payment" value="paypal" id="paypal">
+                                    <label class="custom-control-label" for="paypal">Paypal</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
                             <div class="custom-control custom-radio">
                                 <input type="radio" class="custom-control-input" name="payment" value="COD"
                                     id="directcheck">
                                 <label class="custom-control-label" for="directcheck">CASH ON DELIVERY</label>
                             </div>
-                        </div>
-                        <div class="">
+                            </div>
+                            <div class="form-group">
                             <div class="custom-control custom-radio">
                                 <input type="radio" class="custom-control-input" name="payment" value="Razorpay"
                                     id="banktransfer">
@@ -245,7 +252,7 @@
                         </div>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
-                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
+                        <button  class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
                     </div>
 
                 </div>
@@ -253,6 +260,7 @@
          </div>
        
     </div>
+    </form>
 </div>
     <!-- Checkout End -->
 

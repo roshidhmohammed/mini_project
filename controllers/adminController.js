@@ -11,9 +11,9 @@ const admin_route = require("../routes/adminRoute");
 const { OrderedBulkOperation } = require("mongodb");
 
 
-let isAdminLoggedin
-isAdminLoggedin = false
-let adminSession = false || {}
+// let isAdminLoggedin
+// isAdminLoggedin = false
+// let adminSession = false || {}
 
 
 const { ObjectId } = require("mongodb");
@@ -59,14 +59,14 @@ const verifyLogin = async(req,res) =>{
         if(userData){  
            const passwordMatch = await bcrypt.compare(password,userData.password);
            if(passwordMatch){
-            if(userData.is_admin === 0 ) { 
+            if(userData.is_admin == 0 ) { 
                 res.render('login', {message: "email and password is incorrect"});
             }
             else {
                 adminSession = req.session
-                isAdminLoggedin = true 
-                adminSession.userId = userData._id
-                res.render("home");    
+                isAdminLoggedin = true
+                adminSession.adminId = userData._id
+                res.redirect("/admin/home");    
             }
            }
            else {  
@@ -99,8 +99,11 @@ const LoadDashboard = async (req, res) => {
     try {
       console.log("admin");
       adminSession = req.session;
+      adminSession.adminId
+      
+      
 
-    //   if (adminSession.adminId) {
+    //    if (adminSession.adminId) {
         const productData = await Product.find();
         const userData = await User.find({ is_admin: 0 });
         const categoryData = await Category.find();
@@ -189,7 +192,7 @@ const LoadDashboard = async (req, res) => {
             pcount: salesCount,
           });
         }
-        // } }else {
+        // } else {
         //     res.redirect('/admin/login')
         // }
       
@@ -201,8 +204,8 @@ const LoadDashboard = async (req, res) => {
 const logout = async(req,res) => {
     try {
         adminSession = req.session
-        adminSession.adminId = null
-        isAdminLoggedin = false
+        adminSession.adminId = false
+        // isAdminLoggedin = false
         res.redirect('/admin');
     } catch (error) {
         console.log(error.message);
@@ -221,6 +224,8 @@ const adminhome  = async (req,res)=>{
 
    const adminDashboard = async (req,res) => {
     try {
+        const adminSession = req.session
+        adminSession.adminId
         const usersData = await User.find({is_admin:0});
         res.render("dashboard", {users:usersData});
 
@@ -257,6 +262,8 @@ const blockUser = async (req,res) => {
    const editCategory = async (req, res) => {
     try {
       adminSession = req.session
+      adminSession.userId
+
     //   if (isAdminLoggedin) {
         const id = req.query.id
         console.log(id)
@@ -273,7 +280,7 @@ const blockUser = async (req,res) => {
 
   const updateCategory = async (req, res) => {
     try {
-      adminSession = req.session
+    //   adminSession = req.session
     //   if (isAdminLoggedin) {
         const id = req.params.id
         console.log(id)
@@ -294,6 +301,8 @@ const blockUser = async (req,res) => {
 
 const addproduct = async (req,res)=>  {
     try {
+        const adminSession = req.session
+        adminSession.adminId
         const categoryData = await Category.find()
         console.log(categoryData)
         res.render('add-product', {category:categoryData})
@@ -340,9 +349,16 @@ const insertProduct = async (req,res) =>  {
 }
 
 const viewproducts = async (req,res) => {
-
-    const productData = await Product.find()
+    try {
+        const adminSession = req.session
+        adminSession.adminId
+        const productData = await Product.find()
     res.render('view-products',{products:productData});
+    } catch (error) {
+        console.log(error.message)
+    }
+
+    
 
 }
 
@@ -369,6 +385,8 @@ const productUnblock = async (req,res) => {
 
 const addCategory = async (req,res) => {
     try {
+    const adminSession = req.session
+    adminSession.adminId
         res.render('add-category')
         
     } catch (error) {
@@ -422,6 +440,8 @@ const insertCategory = async (req,res) => {
 
 const viewCategory = async (req,res) => {
     try {
+        const adminSession = req.session
+        adminSession.adminId
         const categoryData = await Category.find()
         res.render('admin-category',{category:categoryData})
         
@@ -432,6 +452,8 @@ const viewCategory = async (req,res) => {
 
 const adminLoadOffer = async(req,res) =>{
     try {
+        const adminSession = req.session
+        adminSession.adminId
         const offerData = await Offer.find()
         res.render('admin-offer',{offer:offerData})
     } catch (error) {
@@ -455,6 +477,8 @@ const adminAddOffer = async (req,res) => {
 
 const adminViewOrder = async (req,res) => {
     try {
+        const adminSession = req.session
+        adminSession.adminId
         const productData  = await Product.find()
         const userData = await User.find({is_admin:0})
         const orderData = await Orders.find().sort({createdAt:-1})
@@ -514,13 +538,14 @@ const adminDelieveredOrder = async (req,res) =>{
 
 const adminOrderDetails = async(req,res)=>{
     try {
+        // const adminSession = req.session
+        // adminSession.adminId
         const id = req.query.id
         const orderData = await Orders.findById({_id:id});
         await orderData.populate('products.item.productId');
         await orderData.populate('userId')
-   res.render('adminViewOrder',{
+   res.render('adminOrder',{
     order:orderData,
-    // layout: '../views/layout/adminLayout.ejs',
    })
     } catch (error) {
       console.log(error.message);
@@ -529,6 +554,8 @@ const adminOrderDetails = async(req,res)=>{
 
   const getBanners = async (req, res) => {
     try {
+        const adminSession = req.session
+        adminSession.adminId
         const bannerData = await Banner.find()
         console.log(bannerData);
         res.render('banner', {
