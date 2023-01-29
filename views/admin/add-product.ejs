@@ -27,8 +27,8 @@
                                     <% if(category.length>0 ) { %>
                                         <% for(let i=0;i<category.length;i++) { %>
                                             <% if(category[i].is_available === 0) { %>
-                                            <option value="<%= category[i].name %>">
-                                                <%=category[i].name %>
+                                            <option value="<%= category[i]._id %>">
+                                                <%=category[i].name%>
                                             </option>
                                             <% } %>
 
@@ -54,6 +54,9 @@
 
                                 <div class="mb-4 form-floating">
                                     <input type="text" name="description" class="form-control"  placeholder="Description" required>
+                                </div>
+                                <div class="mb-4 form-floating">
+                                    <input type="text" name="stock" class="form-control"  placeholder="enter the stock" required>
                                 </div>
 
                                 <div img class="mb-4 form-floating" >

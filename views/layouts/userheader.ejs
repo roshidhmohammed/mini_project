@@ -53,29 +53,29 @@
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="" class="text-decoration-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold; text-dark"><span
-                            class="text-dark font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                            class="text-dark font-weight-bold border px-3 mr-1 border-dark">E</span>Shopper</h1>
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
                 <form action="">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-dark">
-                                <i class="fa fa-search"></i>
+                        <input type="text" class="form-control border-secondary" placeholder="Search for products">
+                        <div class="input-group-append ml-1">
+                            <span class="input-group-text bg-transparent text-dark border-secondary ">
+                                <i class="fa fa-search "></i>
                             </span>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right ">
-                <a href="/wishlist" class="btn border mr-4">
+                <a href="/wishlist" class="btn border-secondary mr-4">
                     <i class="fas fa-heart text-dark"></i>
-                    <span class="badge " style="color:black"></span>
+                    <span class="badge " style="color:black"><%=user.wishlist.item.length%></span>
                 </a>
-                <a href="/cart" class="btn border">
+                <a href="/cart" class="btn border-secondary">
                     <i class="fas fa-shopping-cart text-dark"></i>
-                    <span class="badge" style="color:black"></span>
+                    <span class="badge" style="color:black"><%=user.cart.item.length%></span>
                 </a>
             </div>
         </div>

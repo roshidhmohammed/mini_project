@@ -55,14 +55,14 @@
                                                 class="table text-responsive align-middle table-striped table-hover mb-0">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">SI NO</th>
-                                                        <th scope="col">Order Id</th>
-                                                        <th scope="col">User Name</th>
-                                                        <th scope="col">Time</th>
-                                                        <th scope="col">Mode</th>
-                                                        <th scope="col">Total Price</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col">Actions</th>
+                                                        <th scope="col" style="font-weight: bolder;">SI NO</th>
+                                                        <th scope="col"style="font-weight: bolder;">Order Id</th>
+                                                        <th scope="col" style="font-weight: bolder;">User Name</th>
+                                                        <th scope="col" style="font-weight: bolder;">Time</th>
+                                                        <th scope="col" style="font-weight: bolder;">Mode</th>
+                                                        <th scope="col" style="font-weight: bolder;">Total Price</th>
+                                                        <th scope="col" style="font-weight: bolder;">Status</th>
+                                                        <th scope="col" style="font-weight: bolder;">Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -70,9 +70,9 @@
                                                         <% for(let i=1;i <=order.length; i++){ %>
                                                             <% if(order[i-1].status=="Confirmed" ){ %>
                                                                 <tr>
-                                                                    <th scope="row">
+                                                                    <td scope="row">
                                                                         <%= i %>
-                                                                    </th>
+                                                                    </td>
                                                                     <td>
                                                                         <%= order[i-1]._id %>
                                                                     </td>
@@ -223,12 +223,13 @@
                                                                             <a style="font-weight: bold; border-radius: 10px ;width: 130px;" href="/admin/adminCancelOrder?id=<%= order[i-1]._id %>"
                                                                                 class="btn btn-danger">Cancel
                                                                                 Order</a>
+                                                                                <br>
                                                                             <a style="font-weight: bold; border-radius: 10px ;width: 130px;" href="/admin/adminConfirmOrder?id=<%= order[i-1]._id %>"
                                                                                 class="btn btn-success ">Confirm
                                                                                 Order</a>
                                                                         </td>
                                                                         <td>
-                                                                            <a style="font-weight: bold; border-radius: 10px ;width: 130px;" href="/admin/adminOrderView?id=<%= order[i-1]._id %>"
+                                                                            <a style="font-weight: bold; border-radius: 10px ;width: 130px;" href="/admin/orderDetails?id=<%= order[i-1]._id %>"
                                                                                 class="btn btn-info">View
                                                                                 Order</a>
                                                                         </td>

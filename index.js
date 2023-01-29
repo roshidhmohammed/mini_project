@@ -17,11 +17,17 @@ app.use(express.static('public/user'));
 const userRoute = require('./routes/userRoute');
 app.use('/', userRoute);
 
+app.set('view engine', 'ejs');
+
 
 
 const adminRoute = require("./routes/adminRoute");
 const { defaultConfiguration } = require('./routes/adminRoute');
 app.use('/admin', adminRoute);
+
+app.get('*', function (req,res){
+    res.status(404).render('users/404')
+})
 
 
 

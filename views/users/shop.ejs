@@ -8,7 +8,7 @@
 
 <div class="container-fluid bg-info mb-5">
     <div class="d-flex flex-column align-items-center justify-content-center" style="height: 15vh;">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">shop</h1>
+        <h1 class="font-weight-semi-bold text-uppercase ">shop &nbsp;<img style="margin-bottom: 2vh;" src="\user\img\1x\1x\outline_shopping_bag_black_48dp.png"></h1>
         <div class="d-inline-flex">
             <p class="m-0"></p>
         </div>
@@ -155,14 +155,14 @@
                             </div>
                         </form>
                         <div class="dropdown ml-4">
-                            <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                            <button class="btn border-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
                                         Categories
                                     </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
                                 <% if(typeof category!="undefined"){ %> 
                                     <% for(let i=0;i<category.length;i++){ %> 
-                                <a class="dropdown-item" href="/categoryProduct?category=<%= category[i].name %> %> "><%= category[i].name %></a>
+                                <a class="dropdown-item" href="/categoryProduct?category=<%= category[i]._id %> %> "><%= category[i].name %></a>
                                 <!-- <a class="dropdown-item" href="#">T-shirts</a>
                                 <a class="dropdown-item" href="#">Jackets</a> -->
                                     <% } %> 
@@ -173,7 +173,7 @@
                 </div>
                 <% for(let x of productshop) { %>
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-3">
-                    <div class="card product-item border-1 m-3">
+                    <div class="card product-item border-1 border-secondary m-3">
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0"  >
                             <!-- <a href="/images/" class="MagicZoom" data-options="zoomPosition: inner"><img src="/images/"></a> -->
                             <img  class="img-fluid w-100 "  src="/banners/<%= x.image[0] %>" alt="">
@@ -183,11 +183,12 @@
                             <h6 class="text-truncate mb-3"><%- x.description %></h6>
                             <h6 class="text-truncate mb-3">Price : ₹<%- x.price %></h6>
                         </div>
-                        
-                        <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="/productDetail?id=<%= x._id%>" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                        <div class="card-footer d-flex justify-content-between bg-light border-secondary">
+                            <a href="/productDetail?id=<%= x._id%>" class="btn btn-sm text-dark pb-0 pt-0  pl-5"><i class="fas fa-eye text-primary mr-1 pl-3"></i>View Details</a>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between bg-light border-secondary">
                             <a href="/addToCart?id=<%=x._id%>" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add to cart </a>
-                            <a href="/add-to-wishlist?id=<%=x._id%>" class="btn btn-sm text-dark p-0"><i class="fas fa-heart text-primary"></i></a>
+                            <a href="/add-to-wishlist?id=<%=x._id%>" class="btn btn-sm text-dark p-0"><i class="fas fa-heart text-primary mr-1"></i>Wishlist</a>
                         </div>
                         <!-- <div class="card-footer d-flex justify-content-between bg-light border"> -->
                             <!-- <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a> -->

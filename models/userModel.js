@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Product = require("../models/productModel")
-
+const Address = require("../models/addressModel")
 
 
 
@@ -42,10 +42,10 @@ const userSchema = new mongoose.Schema({
             {
             addId:{
             type:mongoose.Types.ObjectId,
-            ref:'Address',
-            },
-            },
-        ],
+            ref:'Address'
+            }
+            }
+        ]
     },
     cart:{
         item:[{

@@ -262,16 +262,16 @@ const blockUser = async (req,res) => {
    const editCategory = async (req, res) => {
     try {
       adminSession = req.session
-      adminSession.userId
+    //   adminSession.userId
 
-    //   if (isAdminLoggedin) {
+      if (adminSession.adminId) {
         const id = req.query.id
         console.log(id)
         const categoryData = await Category.findById({ _id: id })
         res.render('editcategory', { category: categoryData})
-    //   } else {
-    //     res.redirect('/admin/login')
-    //   }
+      } else {
+        res.redirect('/admin/login')
+      }
     } catch (error) {
       console.log(error.message)
     }
@@ -280,8 +280,8 @@ const blockUser = async (req,res) => {
 
   const updateCategory = async (req, res) => {
     try {
-    //   adminSession = req.session
-    //   if (isAdminLoggedin) {
+      adminSession = req.session
+      if (adminSession.adminId) {
         const id = req.params.id
         console.log(id)
         const categoryData = await Category.findByIdAndUpdate({ _id: id }, { name: req.body.category })
@@ -289,9 +289,9 @@ const blockUser = async (req,res) => {
         if (categoryData) {
           res.redirect('/admin/admin-category')
         }
-    //   } else {
-    //     res.redirect('/admin/login')
-    //   }
+      } else {
+        res.redirect('/admin/login')
+      }
     } catch (error) {
       console.log(error.message)
     }
@@ -319,16 +319,18 @@ const addproduct = async (req,res)=>  {
 const insertProduct = async (req,res) =>  {
 
     try {  
-        
+        const categoryName= await Category.findOne({name:req.body.category})
         const files = req.files
         const product =  Product ({
             name: req.body.name,
             category: req.body.category,
             price: req.body.price,
             description: req.body.description,
+            stock:req.body.stock,
             image: files.map((x) => x.filename),
             // is_available:0
     })
+    console.log(req.body.category)
     console.log(product)
     const categoryData = await Category.find()
     console.log(categoryData)
@@ -360,6 +362,49 @@ const viewproducts = async (req,res) => {
 
     
 
+}
+
+const editProducts = async (req,res) =>{
+    try {
+        adminSession= req.session
+        if(adminSession.adminId) {
+            const id = req.query.id
+            const productData = await Product.findById({_id:id})
+            const categoryData = await Category.find()
+            res.render('editProduct',{product:productData,category:categoryData})
+        } else {
+            res.redirect('/admin/login')
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const updateProducts = async (req,res) => {
+    try {
+        adminSession = req.session
+        if(adminSession.adminId){
+            const files = req.files
+            const id = req.params.id
+            const productData = await Product.findByIdAndUpdate({_id:id},{$set:{
+                name:req.body.name,
+                category:req.body.category,
+                price:req.body.price,
+                description: req.body.description,
+                stock:req.body.stock,
+                image: files.map((x) => x.filename),
+            }})
+            // const categoryData= await Category.find()
+            if(productData){
+                 res.redirect('/admin/view-products')
+            } 
+
+        } else {
+            res.redirect('/admin/login')
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
 }
 
     
@@ -416,6 +461,11 @@ const categoryUnblock = async (req,res) =>{
 
 const insertCategory = async (req,res) => {
     console.log('insert category')
+    const categorys = req.body.category
+    const category = await Category.findOne ({name:{$regex:new RegExp("^" + categorys.toUpperCase(),"i")}})
+    if(category){
+        res.render('add-category',{message:'category already exists'})
+    }else{
     try {
         console.log('1');
         const category = Category ({name:req.body.category})
@@ -435,6 +485,7 @@ const insertCategory = async (req,res) => {
         console.log('error')
         
     }
+}
 }
 
 
@@ -466,7 +517,8 @@ const adminAddOffer = async (req,res) => {
         const offer = Offer({
             name:req.body.name,
             type:req.body.type,
-            discount:req.body.discount
+            discount:req.body.discount,
+            minimumBill:req.body.minimumBill
         })
         await offer.save()
         res.redirect("/admin/admin-offer")
@@ -542,10 +594,13 @@ const adminOrderDetails = async(req,res)=>{
         // adminSession.adminId
         const id = req.query.id
         const orderData = await Orders.findById({_id:id});
-        await orderData.populate('products.item.productId');
+        
+        const completeProduct = await orderData.populate('products.item.productId');
         await orderData.populate('userId')
-   res.render('adminOrder',{
+        // const productData = await Product.find()
+   res.render('orderDetails',{
     order:orderData,
+    product:completeProduct.products
    })
     } catch (error) {
       console.log(error.message);
@@ -664,6 +719,8 @@ module.exports = {
     addproduct,
     insertProduct,
     viewproducts,
+    editProducts,
+    updateProducts,
     productBlock,
     productUnblock,
     addCategory,

@@ -1,0 +1,35 @@
+<%- include("../layouts/adminheader.ejs") %>
+
+
+      
+      <table class="table m-0" >
+        <thead style="background-color: black;">
+          <tr>
+            <th scope="col" style="font-weight: bolder;">Product</th>
+            <th scope="col" style="font-weight: bolder;">Quantity</th>
+            <th scope="col" style="font-weight: bolder;">Price</th>
+            <th scope="col" style="font-weight: bolder;">Total Price</th>
+          </tr>
+        </thead>
+        <tbody style="background-color: aquamarine; font-weight: bold; text-decoration-color: black;">
+           <% for(let key of product.item) { %>
+          <tr>
+            <td><%= key.productId.name%>&nbsp<img src="/banners/<%=key.productId.image[0]%>" alt="img" style="width: 50px;"></td>
+            <td><%=key.qty%></td>
+            <td><%=key.price %></td>
+            <td><%= key.productId.price*key.qty %></td>
+          </tr>
+          <% } %>
+        
+          
+          
+        </tbody>
+        
+        
+      </table>
+
+      <h2 class="text-center text-danger" style="background-color: black;">Cart Total Price:
+        <%= product.totalPrice %></h2>
+      
+    
+

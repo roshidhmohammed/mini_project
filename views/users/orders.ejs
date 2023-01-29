@@ -55,8 +55,14 @@
                         <td class="align-middle"><%=key.createdAt%></td>
                         <td class="align-middle"><%=key.payment%></td>
                         <td class="align-middle"><%=key.status%></td>
-                        <td class="align-middle"><a href="/cancel-order?id=<%=key._id%>"><button class="btn btn-sm btn-danger">Cancel Order</button></a><br><br>
+                        <% if(key.status != "Delivered"){ %>
+                        <td class="align-middle"><a href="/cancel-order?id=<%=key._id%>"><button class="btn btn-sm btn-danger">Cancel Order</button></a>
+                            
+                            <br><br>
                             <a href="/orderProductDetail?id=<%=key._id%>"><button class="btn btn-sm btn-primary">View Detail</button></a></td>
+                            <% }  else {%>
+                                <td><a href="/orderProductDetail?id=<%=key._id%>"><button class="btn btn-sm btn-primary">View Detail</button></a></td>
+                                <%} %>
                       
                     </tr>
                 </tbody>

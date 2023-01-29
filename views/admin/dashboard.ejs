@@ -4,7 +4,7 @@
 <div class="col-md-12">
     <div class="card">
         <div class="header">
-            <h4 class="title">Dashboard</h4>
+            <h2 class="title">User List</h2>
             <p class="category">24 Hours performance</p>
             <hr style="color:black;">
         </div>
@@ -35,14 +35,14 @@
                                     <button type="button" ><a
                                             href="/admin/block-user?id=<%=users[i]._id%>"
                                             style="color: green; text-decoration: none;"
-                                            class="btn btn-outline-success"></a>Show</button>
+                                            class="btn btn-outline-success">Show</a></button>
                                     <% }else{ %>
                                         <br>
 
                                         <button type="button" ><a
                                                 href="/admin/unblock-user?id=<%=users[i]._id%>"
                                                 style="color: red; text-decoration: none;"
-                                                class=" delete btn btn-outline-danger"></a>Hide</button>
+                                                class=" delete btn btn-outline-danger">Hide</a></button>
                                         <% } %>
                             </td>
 

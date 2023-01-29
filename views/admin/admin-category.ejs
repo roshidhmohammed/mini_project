@@ -3,13 +3,14 @@
 <div class="col-md-12">
     <div class="card">
         <div class="header">
-            <h4 class="title">Admin Categories</h4>
+            <h2 class="title">Admin Categories</h2>
             <p class="category">All Brands Categories</p>
             <hr style="color:black;">
+            <a href="/admin/add-category" class="btn btn-light ml-auto" style="background-color:black; font-weight: bold;">Add Category</a>
         </div>
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <table width="100%" class="table" style="color: black;">
-                <tr>
+            <table width="100%" class="table" style="color: black; ">
+                <tr style="font-weight: bolder;">
                     <th>Sl No</th>
                     <th>Items</th>
                     <th>Edit</th>
@@ -26,18 +27,18 @@
                                 <%= category[i].name %>
                             </td>
                             <td>
-                                <a class="text-success"
+                                <a class="text-dark"
                                                 href="/admin/editcategory?id=<%=category[i]._id%>"><i
-                                                    style="color: green;"
-                                                    class="m-r-5 mdi mdi-border-color"></i>Edit</a><br>
+                                                    style="color: blue; font-weight: bolder;"
+                                                    class="m-r-5 mdi mdi-border-color">Edit</a><br>
                             </td>
                             <td>
                                 <% if(category[i].is_available === 0){ %>
                                 <button type="button" ><a href="/admin/admin-category-block?id=<%= category[i]._id%>"
-                                style="color:green; text-decoration: none;" class="btn btn-outline-success"></a>Show</button>
+                                style="color:green; text-decoration: none;" class="btn btn-outline-success">Show</a></button>
                                 <%} else { %>
                                 <button type="button" ><a href="/admin/admin-category-unblock?id=<%= category[i]._id%>"
-                                style="color: red; text-decoration: none;" class=" delete btn btn-outline-success" ></a>Hide</button>
+                                style="color: red; text-decoration: none;" class=" delete btn btn-outline-success" >Hide</a></button>
 
                                 <% } %>
                                 

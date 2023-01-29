@@ -6,6 +6,7 @@ const Product = require("../models/productModel");
 const Orders =require("../models/ordersModel");
 const Offer = require("../models/offerModel")
 const Address=  require('../models/addressModel')
+const Category = require('../models/categoryModel')
 
 const adminMiddleware = require('../middleware/adminAuth')
 
@@ -16,7 +17,7 @@ admin_route.use(bodyParser.urlencoded({extended:true}));
 
 // const path = require("path");
 
-admin_route.set('view engine', 'ejs');
+
 admin_route.set('views','./views/admin');
 
 const path = require("path");
@@ -70,6 +71,9 @@ admin_route.get('/view-products',adminMiddleware.isLogin, adminController.viewpr
 admin_route.get('/add-product',adminMiddleware.isLogin, adminController.addproduct);
 // admin_route.post('/add-product',multer.upload.array('upload_file').adminController.insertProduct)
 
+admin_route.get('/editProduct/' ,adminController.editProducts)
+admin_route.post('/editProduct/:id', multer.upload.array('uploaded_file'), adminController.updateProducts)
+
  
 
 admin_route.post('/add-product',multer.upload.array('uploaded_file'),adminController.insertProduct);
@@ -97,7 +101,7 @@ admin_route.get('/adminOrder',adminMiddleware.isLogin,adminController.adminViewO
 admin_route.get('/adminCancelOrder',adminController.adminCancelOrder);
 admin_route.get('/adminConfirmOrder',adminController.adminConfirmOrder);
 admin_route.get('/adminDeliveredOrder',adminController.adminDelieveredOrder);
-admin_route.get('/adminOrderView', adminController.adminOrderDetails);
+admin_route.get('/orderDetails', adminController.adminOrderDetails);
 
 admin_route.get('/editcategory',adminMiddleware.isLogin, adminController.editCategory)
 admin_route.post('/edit-category/:id',adminController.updateCategory)

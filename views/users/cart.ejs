@@ -7,7 +7,7 @@
 <!-- Page Header Start -->
 <div class="container-fluid bg-info mb-5">
     <div class="d-flex flex-column align-items-center justify-content-center" style="height: 15vh;">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
+        <h1 class="font-weight-semi-bold text-uppercase ">Shopping Cart&nbsp;<img style="margin-bottom: 2vh;" src="\user\img\1x\outline_shopping_cart_black_48dp.png"></h1>
         <div class="d-inline-flex">
         </div>
     </div>
@@ -19,7 +19,11 @@
 <!-- Cart Start -->
 <div class="container-fluid pt-5">
     <div class="row px-xl-5">
+        <% if(cartProducts.item.length>0){ %>
         <div class="col-lg-8 table-responsive mb-5">
+            <% if(id) {%>
+                 
+                <% for(let key of cartProducts.item) { %>
             <table class="table table-bordered text-center mb-0">
                 <thead class="bg-secondary text-dark">
                     <tr class="table_head">
@@ -31,8 +35,7 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle">
-                    <% if(id) {%>
-                        <% for(let key of cartProducts.item) { %>
+                 
                     <tr>
                         <td class="align-middle"><img src="/banners/<%=key.productId.image[0]%>" alt="img" style="width: 50px;"><%=key.productId.name%></td>
                         <td class="align-middle">price: <%=key.productId.price %></td>
@@ -46,21 +49,21 @@
                         <td class="align-middle"><a href="/delete-cart?id=<%=key.productId._id%>"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></a></td>
                     </tr>
                         <% }} else { %>
-                            productData not found
+                            <section class="categories ">
+                                <div class="container-fluid mt-5">
+                                    <div class="d-flex justify-content-center">
+                            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                            <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_xYvGhX.json"  background="transparent"  speed="1"  style="width: 500px; height: 300px;"  loop  autoplay></lottie-player>
+                            </div>
+                            </div>
+                            </section>
                             <% } %>
                     
                 </tbody>
             </table>
         </div>
         <div class="col-lg-4">
-            <form class="mb-5" action="/add-coupon" method="post">
-                <div class="input-group">
-                    <input type="text" class="form-control p-4" name="offer"  placeholder="Coupon Code">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">Apply Coupon</button>
-                    </div>
-                </div>
-            </form>
+            
             
             <div class="card border-secondary mb-5">
                 <div class="card-header bg-secondary border-0">
@@ -78,18 +81,13 @@
                 </div>
                 
                 <div class="card-footer border-secondary bg-transparent">
-                    <div class="d-flex justify-content-between mt-2">
-                        <% if(offer) { %>
-                            <h5 class="font-weight-bold">Coupon</h5>
-                            <h5 class="font-weight-bold"><%= offer.name %></h5>
-                        <% } %>
-                    </div> 
+                    
                     
                         
                     <div class="d-flex justify-content-between mt-2">
                         <% if(id) { %>
                         <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold" id="totall"><%= couponTotal %></h5>
+                        <h5 class="font-weight-bold" id="totall"><%= cartProducts.totalPrice %></h5>
                         <% } %>
                     </div>
                     
@@ -97,8 +95,20 @@
                 </div>
                 
             </div>
+           
             
-        </div>  
+        </div> 
+         <%  }else  {%>
+
+                <section class="categories ">
+                    <div class="container-fluid">
+                        <div class="d-flex justify-content-center">
+                <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<lottie-player src="https://assets1.lottiefiles.com/packages/lf20_qh5z2fdq.json"  background="transparent"  speed="1"  style="width: 400px; height: 400px;"   loop  autoplay></lottie-player>
+                </div>
+                </div>
+                </section> 
+        <% }%>
     </div>
 </div>
 <!-- Cart End -->

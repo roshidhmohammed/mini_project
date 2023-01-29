@@ -9,7 +9,6 @@ const Address=  require('../models/addressModel')
 
 const auth = require("../middleware/userAuth");
 
-user_route.set('view engine', 'ejs');
 user_route.set('views', './views/users');
 
 const bodyParser = require('body-parser');
@@ -54,6 +53,7 @@ user_route.post('/login', userController.verifyLogin );
 user_route.get('/dashboard',userController.userProfile);
 user_route.get('/address',auth.isLogin,userController.addAddress);
 user_route.post('/address',auth.isLogin,userController.updateAddress);
+user_route.get('/delete-address', userController.deleteAddress);
 
 
 user_route.get('/orders',auth.isLogin, userController.userOrders);
@@ -78,6 +78,7 @@ user_route.post('/forgotpasswordchange', userController.changepassword)
 // user_route.get('/view-product', userController.loadshop);
 user_route.get('/shop', userController.usershop);
 user_route.get('/productDetail',userController.productDetail)
+
 
 user_route.get('/categoryProduct',userController.getCategoryProduct)
 

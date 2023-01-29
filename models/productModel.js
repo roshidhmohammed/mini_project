@@ -21,6 +21,9 @@ const productSchema = new mongoose.Schema ({
     image:{
         type:Array
     },
+    stock:{
+        type:Number
+    },
     is_available: {
         type: Number,
         default:1

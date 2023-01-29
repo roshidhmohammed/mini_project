@@ -13,6 +13,9 @@ const offerSchema  = new mongoose.Schema ({
         type:String,
         required:true
     },
+    minimumBill:{
+        type:Number
+    },
     usedBy:{
         type:mongoose.Types.ObjectId,
         ref:'User',

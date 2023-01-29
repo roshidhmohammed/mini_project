@@ -7,6 +7,7 @@
         <h1 style="text-align: center;">Banner Management</h1>
         <a href="/admin/adminOrder" class="btn btn-success ml-auto" >go back</a>
       </div>
+      <br>
       <% if(typeof message!="undefined" ){ %>
         <p class="text-danger">
             <%= message %>
@@ -17,7 +18,9 @@
     <div>
     <form action="/admin/loadBanners" method="post" enctype="multipart/form-data">
       <input type="text" name="banner" placeholder="Banner Name">
+      <br><br>
       <input type="file" name="bannerImage" multiple />
+      <br>
       <button type="submit" class="btn btn-info mt-3">Upload</button>
       <hr />
     </form>
@@ -26,11 +29,11 @@
     <table class="table mt-4">
       <thead>
         <tr>
-          <th scope="col"> Sl No</th>
-          <th scope="col">Banner Name</th>
-          <th scope="col">Banner Images</th>
+          <th scope="col" style="font-weight: bolder;"> Sl No</th>
+          <th scope="col" style="font-weight: bolder;">Banner Name</th>
+          <th scope="col" style="font-weight: bolder;">Banner Images</th>
           <!-- <th scope="col">Description</th> -->
-          <th>Select</th>
+          <th style="font-weight: bolder;">Select</th>
           <!-- <th scope="col">Status</th> -->
         </tr>
       </thead>
