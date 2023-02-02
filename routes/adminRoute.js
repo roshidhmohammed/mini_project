@@ -49,7 +49,7 @@ const adminController = require("../controllers/adminController");
 
 // const upload = multer({storage:storage});
 
-admin_route.get('/',adminMiddleware.isLogout, adminController.loadLogin);
+admin_route.get('/',adminController.loadLogin);
 
 admin_route.post('/', adminController.verifyLogin);
 

@@ -45,7 +45,15 @@ let orderType= 'all';
 
 const loadLogin = async(req,res) =>{
     try {
-         res.render('login');    
+        adminSession =req.session
+        if(adminSession.adminId) {
+            res.redirect('/admin/home')
+        } else {
+            res.render('login'); 
+
+        }
+         
+
     } catch (error) {
         console.log(error.message);
     }
