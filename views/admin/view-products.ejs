@@ -2,9 +2,9 @@
 
   <section>
     <div class="container">
-      <div class="row mt-4 ">
-        <h1 style="text-align: center; text-decoration-color: black;">Product Details</h1>
-        <a href="/admin/add-product" class="btn btn-light ml-auto" style="background-color:black; font-weight: bold;">Add Product</a>
+      <dbutton class="row mt-4 ">
+        <h1 style="text-align: center; margin-right: 10rem; text-decoration-color: black;">Product Details</h1>
+        <a href="/admin/add-product" class="btn btn-dark ml-auto" style="background-color:black; font-weight: bolder; color: white; ">ADD PRODUCT</a>
       </div>
 
     </div>
@@ -27,13 +27,18 @@
             <tr>
               <th scope="row"><%- i %></th>
               <td><%- products[i-1].name %></td>
-              <td><%-  products[i-1].category %></td>
+              <% for(let j=0;j<categoryData.length;j++){ %> 
+              <% if(products[i-1].category==categoryData[j]._id){ %> 
+              <td><%=  categoryData[j].name%></td>
+           <% }}%>
+            
+           
               <td><%-  products[i-1].description %></td>
               <td><img style="width: 50px; height: 50px;" src="/banners/<%=  products[i-1].image[0] %>" alt=""></td>
               <td>
                 <a class="text-success"
                                                     href="/admin/editProduct?id=<%= products[i-1]._id %>"><i
-                                                        style="color: blue; font-weight: bolder; "
+                                                        style="color:darkblue; font-size: medium; font-weight: bolder; "
                                                         class="m-r-5 mdi mdi-border-color">Edit</i></a><br>
               </td>
               <td>

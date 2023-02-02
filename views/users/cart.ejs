@@ -23,7 +23,7 @@
         <div class="col-lg-8 table-responsive mb-5">
             <% if(id) {%>
                  
-                <% for(let key of cartProducts.item) { %>
+                
             <table class="table table-bordered text-center mb-0">
                 <thead class="bg-secondary text-dark">
                     <tr class="table_head">
@@ -35,8 +35,10 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle">
+                    <% for(let key of cartProducts.item) { %>
                  
                     <tr>
+                        
                         <td class="align-middle"><img src="/banners/<%=key.productId.image[0]%>" alt="img" style="width: 50px;"><%=key.productId.name%></td>
                         <td class="align-middle">price: <%=key.productId.price %></td>
                         <td class="align-middle">
@@ -55,6 +57,9 @@
                             <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
                             <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_xYvGhX.json"  background="transparent"  speed="1"  style="width: 500px; height: 300px;"  loop  autoplay></lottie-player>
                             </div>
+                            <div class="d-flex justify-content-center">
+                                <h1>No Products Found</h1>
+                                </div>
                             </div>
                             </section>
                             <% } %>

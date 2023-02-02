@@ -15,9 +15,11 @@
 <!-- Page Header End -->
 
 <!--wishlist start-->
+<% if(wishlistProducts.item.length>0) {%>
 <div class="container-fluid pt-5">
     <div class="row px-xl-5">
         <div class="col-lg-8 table-responsive mb-5">
+            
             <table class="table table-bordered text-center mb-0">
                 <thead class="bg-secondary text-dark">
                     <tr>
@@ -44,9 +46,24 @@
 
                 </tbody>
             </table>
+            
+              
         </div>
     </div>
 </div>
-
+<%} else { %>
+    <section class="categories ">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-center">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<lottie-player src="https://assets4.lottiefiles.com/packages/lf20_qipaj41e.json"  background="transparent"  speed="1"  style="width: 400px; height: 300px;"  loop  autoplay></lottie-player>
+</div>
+<br>
+<div class="d-flex justify-content-center">
+<h1>No Products Found</h1>
+</div>
+</div>
+<%}%>
+</section>
 
 <%- include("../layouts/userfooter.ejs") %>

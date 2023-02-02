@@ -28,6 +28,7 @@ let offer = {
     name:'None',
     type:'None',
     discount:0,
+    minimumBill:'None',
     usedBy:false
 }
 let couponTotal = 0
@@ -327,7 +328,7 @@ const usershop = async (req,res) => {
         userSession = req.session
         const userData = await User.findById({_id:userSession.userId})
         const id = req.session.userId;
-        const category = await Category.find()
+        const category = await Category.find({is_available:0})
         // const productshop = await Product.find({is_available:1})
         let search = ''
     if (req.query.search) {
@@ -349,14 +350,14 @@ const usershop = async (req,res) => {
       .skip((page - 1) * limit)
       .exec()
     const count = await Product.find({
-      is_available: 1,is_active: 1,
+      is_available: 1,
       $or: [
         { name: { $regex: '.*' + search + '.*', $options: 'i' } },
         { name: { $regex: '.*' + search + '.*', $options: 'i' } }
       ]
     }).countDocuments()
 
-    const categoryData = await Category.find({is_active: 1})
+    const categoryData = await Category.find({is_available: 1})
     const ID = req.query.id
     // console.log(categoryData)
     const data = await Category.findOne({ _id: ID })
@@ -384,7 +385,8 @@ const usershop = async (req,res) => {
               totalPages: Math.ceil(count / limit),
               currentPage: page,
               category,
-              id:userSession.userId,
+            //   categoryData,
+            //   id:userSession.userId,
               previous: new Number(page) - 1,
               next: new Number(page) + 1,
               user:userData
@@ -513,7 +515,8 @@ const updateAddress = async (req,res) =>{
         })
         // console.log("address:" +addressData)
         await addressData.save()
-        res.render('address',{address:addressData,user:userData})
+        res.redirect('/address')
+        // res.render('address',{address:addressData,user:userData})
     } catch (error) {
         console.log(error.message)    
     }
@@ -683,14 +686,14 @@ const loadCheckout = async (req,res) => {
         const userSession = req.session
         if(userSession.userId) 
         {   
-            // const id = req.query._id
+            const id = req.query.addressid
             // console.log("id:" + id)      
             const userData = await User.findById({_id: userSession.userId})
             // console.log(userData);
             const completeUser = await userData.populate('cart.item.productId')
             const addressData = await Address.find({userId:userSession.userId})
             console.log("user:" +addressData)
-            const selectAddress = await Address.findOne({userId:userData._id})
+            const selectAddress = await Address.findOne({_id:id})
             console.log("address:" + selectAddress)
             // const updateAddresss = await Address.findOne({_id:id})
             // console.log("update:" + updateAddresss)
@@ -892,21 +895,32 @@ const razorpayCheckout = async(req,res)=>{
 const addCoupon = async (req,res) =>{
     try {
         userSession = req.session
+        console.log("coupon starting")
         if(userSession.userId) {
+
             console.log('user id '+userSession.userId)
             const userData = await User.findById({_id:userSession.userId})
             const offerData = await Offer.findOne({name:req.body.offer})
+            
             console.log(userData.cart.totalPrice)
-            console.log(offerData.minimumBill)
+            // console.log(offerData.minimumBill)
             
             // let offername = req.body.offer
             // console.log("coupon name :"+ offername)
             // console.log(offerData)
             if(offerData){
-                console.log(offerData)
+                // console.log(offerData)
+                // console.log(offerData.usedBy)
 
-                if(offerData.usedBy != userSession.userId) {
+                if(offerData.usedBy.includes(userSession.userId)) {
+                    // console.log("coupon not used")
                     // console.log('user:',userSession)
+                    console.log("coupon already used")
+                    userSession.offer.usedBy = true
+                    res.redirect('/checkout',{message:"coupon already used"})
+                    
+
+                } else {
                     userSession.offer.name = offerData.name
                     userSession.offer.type  = offerData.type
                     userSession.offer.discount  = offerData.discount
@@ -914,14 +928,17 @@ const addCoupon = async (req,res) =>{
 
                     if(userData.cart.totalPrice>=offerData.minimumBill) {
                     let updatedTotal = userData.cart.totalPrice - (userData.cart.totalPrice*userSession.offer.discount)/100
+                    // console.log("minimumbill checking")
 
                     userSession.couponTotal = updatedTotal
                     }
                     res.redirect('/checkout')
 
-                } else {
-                    userSession.offer.usedBy = true
-                    res.redirect('/checkout')
+
+
+
+
+                    
                 }
 
             } else {

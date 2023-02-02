@@ -60,13 +60,16 @@ const verifyLogin = async(req,res) =>{
            const passwordMatch = await bcrypt.compare(password,userData.password);
            if(passwordMatch){
             if(userData.is_admin == 0 ) { 
+                
                 res.render('login', {message: "email and password is incorrect"});
             }
             else {
                 adminSession = req.session
                 isAdminLoggedin = true
                 adminSession.adminId = userData._id
-                res.redirect("/admin/home");    
+                // console.log("adminsession:" + userData._id)
+                console.log("login")
+                res.redirect("/admin/dashboard");    
             }
            }
            else {  
@@ -95,15 +98,27 @@ const verifyLogin = async(req,res) =>{
 //     }
 // }
 
+// const adminhome  = async (req,res)=>{
+//     try {
+//      const usersData = await User.find({is_admin:0})
+//      res.render("home",{users:usersData});
+//     } catch (error) {
+//      console.log(error.message);
+//     }
+//    }
+
+
 const LoadDashboard = async (req, res) => {
     try {
       console.log("admin");
-      adminSession = req.session;
-      adminSession.adminId
+      adminSession = req.session
+    //   adminSession.adminId
+      
       
       
 
-    //    if (adminSession.adminId) {
+       if (adminSession.adminId) {
+        console.log("hi")
         const productData = await Product.find();
         const userData = await User.find({ is_admin: 0 });
         const categoryData = await Category.find();
@@ -114,6 +129,8 @@ const LoadDashboard = async (req, res) => {
           categoryArray.push(key.name);
           orderCount.push(0);
         }
+        // console.log(categoryArray)
+        // console.log(orderCount)
         const completeOrder = [];
         const orderData = await Orders.find();
         const orderItems = orderData.map((item) => item.products.item);
@@ -123,6 +140,11 @@ const LoadDashboard = async (req, res) => {
             productIds.push(item.productId.toString());
           });
         });
+
+        // console.log(completeOrder)
+        // console.log(orderData)
+        // console.log(orderItems)
+        // console.log(productIds)
   
         const s = [...new Set(productIds)];
         const uniqueProductObjs = s.map((id) => {
@@ -137,25 +159,41 @@ const LoadDashboard = async (req, res) => {
             });
           });
         });
+
+        // console.log(s)
+        // console.log(uniqueProductObjs)
   
         for (let key of orderData) {
           const append = await key.populate("products.item.productId");
           completeOrder.push(append);
+        
         }
+        let completeOrderData=[]
+        console.log(completeOrderData)
   
-        completeOrder.forEach((order) => {
+        completeOrderData.push(completeOrder.forEach((order) => {
           order.products.item.forEach((it) => {
             uniqueProductObjs.forEach((obj) => {
+                console.log('if')
               if (it.productId._id.toString() === obj.id.toString()) {
                 uniqueProductObjs.forEach((ss) => {
                   if (ss.id.toString() !== it.productId._id.toString()) {
                     obj.name = it.productId.name;
+                    // console.log('inner if')
+                  }else{
+                    // console.log('if error')
                   }
                 });
+              }else{
+                // console.log('if error main')
               }
+            //   console.log('end')
             });
           });
-        });
+        }))
+        console.log(completeOrderData)
+        console.log('product')
+        
         const salesCount = [];
         const productName = productData.map((product) => product.name);
         for (let i = 0; i < productName.length; i++) {
@@ -183,6 +221,7 @@ const LoadDashboard = async (req, res) => {
         }
   
         if (productName && salesCount) {
+            console.log("home")
           res.render("home", {
             products: productData,
             users: userData,
@@ -192,9 +231,9 @@ const LoadDashboard = async (req, res) => {
             pcount: salesCount,
           });
         }
-        // } else {
-        //     res.redirect('/admin/login')
-        // }
+        } else {
+            res.redirect('/admin/login')
+        }
       
     } catch (error) {
       console.log(error.message);
@@ -213,14 +252,7 @@ const logout = async(req,res) => {
 
 }
 
-const adminhome  = async (req,res)=>{
-    try {
-     const usersData = await User.find({is_admin:0})
-     res.render("home",{users:usersData});
-    } catch (error) {
-     console.log(error.message);
-    }
-   }
+
 
    const adminDashboard = async (req,res) => {
     try {
@@ -354,14 +386,18 @@ const viewproducts = async (req,res) => {
     try {
         const adminSession = req.session
         adminSession.adminId
+        const id = req.query.id
         const productData = await Product.find()
-    res.render('view-products',{products:productData});
+        let category=[]
+        for(let key of productData){
+            category.push(key.category)
+        }
+        console.log(category)
+        const categoryData = await Category.find({_id : category})
+    res.render('view-products',{products:productData,categoryData});
     } catch (error) {
         console.log(error.message)
     }
-
-    
-
 }
 
 const editProducts = async (req,res) =>{
@@ -386,18 +422,48 @@ const updateProducts = async (req,res) => {
         if(adminSession.adminId){
             const files = req.files
             const id = req.params.id
-            const productData = await Product.findByIdAndUpdate({_id:id},{$set:{
-                name:req.body.name,
-                category:req.body.category,
-                price:req.body.price,
-                description: req.body.description,
-                stock:req.body.stock,
-                image: files.map((x) => x.filename),
-            }})
+            
+            // const productData = await Product.findByIdAndUpdate({_id:id},{$set:{
+            const name=req.body.name
+            const category=req.body.category
+            const price=req.body.price
+            const description=req.body.description
+            const stock=req.body.stock
+            const image= files.map((x) => x.filename)
+            // }})
             // const categoryData= await Category.find()
-            if(productData){
-                 res.redirect('/admin/view-products')
-            } 
+            // if(productData){
+            //      res.redirect('/admin/view-products')
+            // } 
+            if(image.length==0){
+                await Product.findByIdAndUpdate(
+                    {_id:req.params.id},
+                    
+                        {
+                            name,
+                            category,
+                            price,
+                            description,
+                            stock,
+                        }
+                    
+                )
+            } else {
+                await Product.findByIdAndUpdate(
+                    {_id:req.params.id},
+                    {
+                        
+                            name,
+                            category,
+                            description,
+                            stock,
+                            image,
+
+                    }
+                
+                )
+            }
+            res.redirect('/admin/view-products')
 
         } else {
             res.redirect('/admin/login')
@@ -712,7 +778,7 @@ module.exports = {
     verifyLogin,
     LoadDashboard,
     logout,
-    adminhome,
+    // adminhome,
     adminDashboard,
     blockUser,
     unBlockUser,

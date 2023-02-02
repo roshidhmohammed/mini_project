@@ -16,10 +16,10 @@ const offerSchema  = new mongoose.Schema ({
     minimumBill:{
         type:Number
     },
-    usedBy:{
+    usedBy:[{
         type:mongoose.Types.ObjectId,
         ref:'User',
-    },
+    }],
 })
 
 module.exports = mongoose.model('Offer',offerSchema)

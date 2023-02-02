@@ -53,13 +53,15 @@ admin_route.get('/',adminMiddleware.isLogout, adminController.loadLogin);
 
 admin_route.post('/', adminController.verifyLogin);
 
-
+// admin_route.get('/home',adminMiddleware.isLogin, adminController.adminhome);
 
 admin_route.get('/home',adminMiddleware.isLogin,adminController.LoadDashboard);
 
-admin_route.get('/logout',adminMiddleware.isLogin, adminController.logout);
+admin_route.get('/admin',adminMiddleware.isLogin, adminController.logout);
 
 admin_route.get('/dashboard',adminMiddleware.isLogin, adminController.adminDashboard);
+
+
 
 admin_route.get('/block-user', adminController.blockUser);
 

@@ -145,15 +145,19 @@
                 <div class="col-12 pb-1">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <form action="">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search by name">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-transparent text-primary">
+                            <div class="input-group" >
+                                <input type="text" style="border-color: black; margin-left: 15rem; min-width: 40rem;" class="form-control" placeholder="Search by name" name="search">
+                                <!-- <button class="input-group-append"> -->
+                                    <button type="submit" class="btn">
+                                    <span class="input-group-text bg-transparent text-primary" style="border-color: black;">
                                         <i class="fa fa-search"></i>
                                     </span>
-                                </div>
+                                </button>
+                                <!-- </div> -->
                             </div>
-                        </form>
+                            </form>
+                            
+                       
                         <div class="dropdown ml-4">
                             <button class="btn border-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false">
@@ -162,7 +166,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
                                 <% if(typeof category!="undefined"){ %> 
                                     <% for(let i=0;i<category.length;i++){ %> 
-                                <a class="dropdown-item" href="/categoryProduct?category=<%= category[i]._id %> %> "><%= category[i].name %></a>
+                                <a class="dropdown-item" href="/categoryProduct?category=<%= category[i]._id %> "><%= category[i].name %></a>
                                 <!-- <a class="dropdown-item" href="#">T-shirts</a>
                                 <a class="dropdown-item" href="#">Jackets</a> -->
                                     <% } %> 
