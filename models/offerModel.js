@@ -16,6 +16,10 @@ const offerSchema  = new mongoose.Schema ({
     minimumBill:{
         type:Number
     },
+    isActive: {
+        type:Number,
+        default:1
+    },
     usedBy:[{
         type:mongoose.Types.ObjectId,
         ref:'User',

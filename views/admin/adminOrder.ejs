@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="work-category py-3 px-3 ">
                 <div class="d-flex flex-column align-items-center">
-                    <h2 class="mt-2 mb-3" style="text-align: center; mb-3">Order Management</h2>
+                    <h2 class="mt-2 mb-3" style="text-align: center; margin-bottom: 3;">Order Management</h2>
                 </div>
                 <div class="d-flex; ">
                     
@@ -36,10 +36,41 @@
                             <span style="color: black; font-weight: bolder; font-size: medium;">Delivered Orders</span>
                         </a>
 
-                        <a style="font-weight: bold; border-radius: 10px ;width: 150px;" href="/admin/exportUsers"
+                        <!-- <a style="font-weight: bold; border-radius: 10px ;width: 150px;" href="/admin/exportUsers"
                             class=" btn btn-success ">
                             <span style="color: black; font-weight: bolder; font-size: medium;">Export Orders</span>
-                        </a>
+                        </a> -->
+                        <br>
+                        <!-- </div> -->
+                        <br>
+
+
+                        <div class="dropdown">
+                            <button class="btn border-secondary dropdown-toggle" type="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                        Export Orders
+                                    </button>
+                            <div class="dropdown-menu " style="background-color: black; text-align: center;" aria-labelledby="dropdownMenuLink"> 
+                               <a href="/admin/exportUsers" value="<%= orderData %>" ><option class="dropdown-item"  style="color: aqua; font-weight: bolder;"  >Last 3 days</option></a>
+                                
+                                
+                                <!-- <a class="dropdown-item" href="#">Jackets</a> -->
+                                    
+                            
+                            
+                                <a href="/admin/exportUsers" value="<%= 5*orderData %>"><option class="dropdown-item"  style="color: aqua; font-weight: bolder;" >Last 6 days</option></a>
+
+                                </div>
+                        </div>
+
+
+                        
+                        
+
+
+                        
+
+                        
                     
                 </div>
                 <br>
@@ -220,6 +251,13 @@
                                                                             <%= order[i-1].status %>
                                                                         </td>
                                                                         <td>
+                                                                            <% if(order[i-1].status=="Cancelled" ){ %>
+
+                                                                                <%}  else if(order[i-1].status=="Confirmed") {%>
+
+                                                                                    <%} else if(order[i-1].status=="Delivered") {%>
+
+                                                                                    <% } else {%>
                                                                             <a style="font-weight: bold; border-radius: 10px ;width: 130px; color: black;" href="/admin/adminCancelOrder?id=<%= order[i-1]._id %>"
                                                                                 class="btn btn-danger">Cancel
                                                                                 Order</a>
@@ -227,6 +265,7 @@
                                                                             <a style="font-weight: bold; border-radius: 10px ;width: 130px; color: black;" href="/admin/adminConfirmOrder?id=<%= order[i-1]._id %>"
                                                                                 class="btn btn-success ">Confirm
                                                                                 Order</a>
+                                                                                <%}%>
                                                                         </td>
                                                                         <td>
                                                                             <a style="font-weight: bold; border-radius: 10px ;width: 130px; color: black;" href="/admin/orderDetails?id=<%= order[i-1]._id %>"

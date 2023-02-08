@@ -9,6 +9,10 @@ const Banner = require('../models/bannerModel');
 const Orders = require("../models/ordersModel");
 const admin_route = require("../routes/adminRoute");
 const { OrderedBulkOperation } = require("mongodb");
+// const sharp = require('sharp');
+// const fs = require("fs");
+// const Jimp = require('jimp') ;
+
 
 
 // let isAdminLoggedin
@@ -77,7 +81,7 @@ const verifyLogin = async(req,res) =>{
                 adminSession.adminId = userData._id
                 // console.log("adminsession:" + userData._id)
                 console.log("login")
-                res.redirect("/admin/dashboard");    
+                res.redirect("/admin/home");    
             }
            }
            else {  
@@ -126,7 +130,6 @@ const LoadDashboard = async (req, res) => {
       
 
        if (adminSession.adminId) {
-        console.log("hi")
         const productData = await Product.find();
         const userData = await User.find({ is_admin: 0 });
         const categoryData = await Category.find();
@@ -177,12 +180,10 @@ const LoadDashboard = async (req, res) => {
         
         }
         let completeOrderData=[]
-        console.log(completeOrderData)
   
         completeOrderData.push(completeOrder.forEach((order) => {
           order.products.item.forEach((it) => {
             uniqueProductObjs.forEach((obj) => {
-                console.log('if')
               if (it.productId._id.toString() === obj.id.toString()) {
                 uniqueProductObjs.forEach((ss) => {
                   if (ss.id.toString() !== it.productId._id.toString()) {
@@ -200,7 +201,6 @@ const LoadDashboard = async (req, res) => {
           });
         }))
         console.log(completeOrderData)
-        console.log('product')
         
         const salesCount = [];
         const productName = productData.map((product) => product.name);
@@ -214,8 +214,7 @@ const LoadDashboard = async (req, res) => {
           }
         }
   
-        console.log(salesCount);
-        console.log(productName);
+       
         for (let i = 0; i < completeOrder.length; i++) {
           for (let j = 0; j < completeOrder[i].products.item.length; j++) {
             const categoryData = completeOrder[i].products.item[j].productId.category;
@@ -223,13 +222,12 @@ const LoadDashboard = async (req, res) => {
               return category === categoryData;
             });
             orderCount[isExisting]++;
-            console.log(categoryData);
-            console.log(orderCount);
+            
           }
         }
   
         if (productName && salesCount) {
-            console.log("home")
+            
           res.render("home", {
             products: productData,
             users: userData,
@@ -306,7 +304,6 @@ const blockUser = async (req,res) => {
 
       if (adminSession.adminId) {
         const id = req.query.id
-        console.log(id)
         const categoryData = await Category.findById({ _id: id })
         res.render('editcategory', { category: categoryData})
       } else {
@@ -323,9 +320,7 @@ const blockUser = async (req,res) => {
       adminSession = req.session
       if (adminSession.adminId) {
         const id = req.params.id
-        console.log(id)
         const categoryData = await Category.findByIdAndUpdate({ _id: id }, { name: req.body.category })
-        console.log(categoryData)
         if (categoryData) {
           res.redirect('/admin/admin-category')
         }
@@ -344,7 +339,6 @@ const addproduct = async (req,res)=>  {
         const adminSession = req.session
         adminSession.adminId
         const categoryData = await Category.find()
-        console.log(categoryData)
         res.render('add-product', {category:categoryData})
 
     } catch (error) {
@@ -370,12 +364,12 @@ const insertProduct = async (req,res) =>  {
             image: files.map((x) => x.filename),
             // is_available:0
     })
-    console.log(req.body.category)
-    console.log(product)
+    // console.log(req.body.category)
+    // console.log(product)
     const categoryData = await Category.find()
-    console.log(categoryData)
+    // console.log(categoryData)
     const productData = await product.save();
-    console.log(productData)
+    // console.log(productData)
 
     if(productData) {
         res.render('add-product', {message:"product insertion has been successfull",category:categoryData})
@@ -400,7 +394,7 @@ const viewproducts = async (req,res) => {
         for(let key of productData){
             category.push(key.category)
         }
-        console.log(category)
+        // console.log(category)
         const categoryData = await Category.find({_id : category})
     res.render('view-products',{products:productData,categoryData});
     } catch (error) {
@@ -412,10 +406,15 @@ const editProducts = async (req,res) =>{
     try {
         adminSession= req.session
         if(adminSession.adminId) {
+            console.log("edit products")
             const id = req.query.id
             const productData = await Product.findById({_id:id})
             const categoryData = await Category.find()
-            res.render('editProduct',{product:productData,category:categoryData})
+            // console.log("productcat"+productData.category)
+            const categoryId = productData.category
+            const productCategory = await Category.findById({_id : categoryId})
+            // console.log(productCategory.name)
+            res.render('editProduct',{product:productData,category:categoryData, productCategory})
         } else {
             res.redirect('/admin/login')
         }
@@ -534,14 +533,14 @@ const categoryUnblock = async (req,res) =>{
 }
 
 const insertCategory = async (req,res) => {
-    console.log('insert category')
+    
     const categorys = req.body.category
     const category = await Category.findOne ({name:{$regex:new RegExp("^" + categorys.toUpperCase(),"i")}})
     if(category){
         res.render('add-category',{message:'category already exists'})
     }else{
     try {
-        console.log('1');
+        
         const category = Category ({name:req.body.category})
 
         const categoryData = await category.save()
@@ -605,9 +604,19 @@ const adminViewOrder = async (req,res) => {
     try {
         const adminSession = req.session
         adminSession.adminId
+
+        const day = 3;
+        const today = new Date()
+        const dateTimeToFilter = new Date() - day;
+        const filter = {createdAt:{$lte:today,$gte:dateTimeToFilter}}
+
+
+
+
         const productData  = await Product.find()
         const userData = await User.find({is_admin:0})
         const orderData = await Orders.find().sort({createdAt:-1})
+        const orderByDate = await Orders.find({filter})
         for(let key of orderData) {
             await key.populate('products.item.productId')
             await key.populate('userId')
@@ -616,7 +625,8 @@ const adminViewOrder = async (req,res) => {
             res.render('adminOrder',{
                 users:userData,
                 product:productData,
-                order:orderData
+                order:orderData,
+                orderData:orderByDate
             })
         } else {
             id= req.query.id
@@ -624,7 +634,8 @@ const adminViewOrder = async (req,res) => {
                 users:userData,
                 product:productData,
                 order:orderData,
-                id:id
+                id:id,
+                orderData:orderByDate
             })
         }
     } catch (error) {
@@ -635,7 +646,7 @@ const adminViewOrder = async (req,res) => {
 const adminCancelOrder = async (req,res) =>{
     try {
         const id =req.query.id;
-        await Orders.deleteOne({_id:id});
+        await Orders.deleteOneAndUpdateOne({_id:id},{$set:{status:'Cancelled'}});
         res.redirect('/admin/adminOrder')
     } catch (error) {
         console.log(error.message)
@@ -654,6 +665,7 @@ const adminConfirmOrder  = async(req,res) =>{
 
 const adminDelieveredOrder = async (req,res) =>{
     try {
+        
         const id = req.query.id
         await Orders.updateOne({_id:id},{$set:{status:'Delivered'}})
         res.redirect('/admin/adminOrder');
@@ -732,13 +744,21 @@ const currentBanner = async (req, res) => {
 
 const usersDownload = async function(req,res){
     try {
+        const day = new Date(3*86400000 );
+        const today = new Date()
+        const dateTimeTofilter = new Date() - day;
+        const filter = {"createdAt":{$gte:dateTimeTofilter}}
+        console.log(filter)
+        console.log(today)
+        
       const workBook = new excelJs.Workbook();
       const workSheet = workBook.addWorksheet("My users");
       workSheet.columns=[
       {header:"S no.",key:"s_no"},
+      {header:"UserId",key:"userId"},
       {header:"FirstName",key:"firstname"},
       {header:"LastName",key:"lastname"},
-      {header:"amount",key:"products.item.price"},
+      {header:"amount",key:"amount"},
       {header:"Payment",key:"payment"},
       {header:"Country",key:"country"},
       {header:"Address",key:"address1"},
@@ -752,11 +772,11 @@ const usersDownload = async function(req,res){
   
       let counter =1;
   
-      const userData = await Orders.find({});
+      const orderData = await Orders.find(filter);
   
-      userData.forEach(function(users){
-        users.s_no = counter;
-        workSheet.addRow(users);
+      orderData.forEach(function(orders){
+        orders.s_no = counter;
+        workSheet.addRow(orders);
         counter++;
       })
   
@@ -776,6 +796,115 @@ const usersDownload = async function(req,res){
       return workBook.xlsx.write(res).then(function(){
         res.status(200);
       })
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+
+  const imageCrops = async (req,res) =>{
+    try {
+        res.render('cropImage')
+    } catch (error) {
+        console.log(error.message)
+    }
+  }
+
+//   const imageCrops = async (req,res) =>{
+//     // (async function () {
+//     try {
+//         // const files = req.files
+//         const info = await sharp("public/banners/").webp().toFile("public/userImages/");
+//         const infos = await sharp({
+//             create: {
+//                 width: 10,
+//                 height: 10,
+//                 channels: 4
+//                 // background: { r: 255, g: 0, b: 0, alpha: 0.5 }
+//             }
+//         }).webp().toFile("public/userImages/");
+
+//         res.render("add-product",{info,infos})
+//     } catch (error) {
+//         console.log(error.message)
+//     }
+//   }
+
+
+// async function crop() { // Function name is same as of file name
+//     // Reading Image
+//     const image = await Jimp.read
+//     ('public\banners\uploaded_file-1672816239007-707552685.jpg');
+//     image.crop(100, 50, 470, 270)
+//     .write('\public\userImages\uploaded_file');
+//  }
+ 
+//  crop(); // Calling the function here using async
+//  console.log("Image is processed successfully");
+
+// sharp
+// let originalImage = ('public/banners/uploaded_file-1675706593200-826259583.jpg');
+
+// // file name for cropped image
+// let outputImage = ('public/userImages');
+
+// sharp(originalImage).extract({ width: 1920, height: 1080, left: 60, top: 40 }).toFile(outputImage)
+//     .then(function(new_file_info) {
+//         console.log("Image cropped and saved");
+//     })
+//     .catch(function(err) {
+//         console.log("An error occured");
+//     });
+
+
+const loadCoupon = async (req, res) => {
+    try {
+      adminSession = req.session
+      if (adminSession.adminId) {
+        const offerData = await Offer.find({})
+        console.log(offerData)
+        res.render('couponList', { coupon: offerData })
+      } else {
+        res.redirect('/admin/login')
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+const blockCoupon = async (req, res) => {
+    try {
+      adminSession = req.session
+      if (adminSession.adminId) {
+        const Id = req.query.id
+        const couponData = await Offer.findByIdAndUpdate({ _id: Id }, { $set: { isActive: 0 } })
+        if (couponData) {
+          res.redirect('/admin/couponList')
+        } else {
+          res.redirect('/admin/couponList')
+        }
+      } else {
+        res.redirect('/admin/login')
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
+  const showCoupon = async (req, res) => {
+    try {
+      adminSession = req.session
+      if (adminSession.adminId) {
+        const Id = req.query.id
+        const couponData = await Offer.findByIdAndUpdate({ _id: Id }, { $set: { isActive: 1 } })
+        if (couponData) {
+          res.redirect('/admin/couponList')
+        } else {
+          res.redirect('/admin/couponList')
+        }
+      } else {
+        res.redirect('/admin/login')
+      }
     } catch (error) {
       console.log(error.message)
     }
@@ -814,7 +943,11 @@ module.exports = {
     currentBanner,
     usersDownload,
     editCategory,
-    updateCategory
+    updateCategory,
+    imageCrops,
+    loadCoupon,
+    blockCoupon,
+    showCoupon
 }
 
 

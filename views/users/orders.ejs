@@ -55,14 +55,24 @@
                         <td class="align-middle"><%=key.createdAt%></td>
                         <td class="align-middle"><%=key.payment%></td>
                         <td class="align-middle"><%=key.status%></td>
-                        <% if(key.status != "Delivered"){ %>
-                        <td class="align-middle"><a href="/cancel-order?id=<%=key._id%>"><button class="btn btn-sm btn-danger">Cancel Order</button></a>
+                        <% if(key.status == "Delivered"){ %>
+                            <td>
+                            <a href="/orderProductDetail?id=<%=key._id%>"><button class="  btn btn-sm btn-primary">View Detail</button></a></td>
                             
-                            <br><br>
-                            <a href="/orderProductDetail?id=<%=key._id%>"><button class="btn btn-sm btn-primary">View Detail</button></a></td>
-                            <% }  else {%>
+                            
+                           
+                            <% }  else if(key.status == "Cancelled") {%>
                                 <td><a href="/orderProductDetail?id=<%=key._id%>"><button class="btn btn-sm btn-primary">View Detail</button></a></td>
-                                <%} %>
+                                <%} else if(key.status == "Confirmed"){%>
+                                    <td><a href="/orderProductDetail?id=<%=key._id%>"><button class="btn btn-sm btn-primary">View Detail</button></a></td>
+
+                                    <%} else {%>
+                                        <td class="align-middle"><a href="/cancel-order?id=<%=key._id%>" ><button class="btn btn-sm btn-danger">Cancel Order</button></a>
+                            
+                            
+                                            <br><br>
+                                            <a href="/orderProductDetail?id=<%=key._id%>"><button class="  btn btn-sm btn-primary">View Detail</button></a></td>
+                                        <%}%>
                       
                     </tr>
                 </tbody>
@@ -134,4 +144,132 @@
     </div>
     </div>
 
-<%- include("../layouts/userfooter.ejs")  %>
+<!-- footer -->
+<div class="container-fluid bg-dark text-light  mt-5 pt-5" >
+    <div class="row px-xl-5 mt-0 pt-0" >
+        <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+            <a href="" class="text-decoration-none">
+                <h1 class="mb-4 display-5 font-weight-semi-bold text-light"><span class="text-light font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
+            </a>
+            <!-- <p>Dolore erat dolor sit lorem vero amet. Sed sit lorem magna, ipsum no sit erat lorem et magna ipsum dolore amet erat.</p>
+            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
+            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p> -->
+        </div>
+         <div class="col-lg-8 col-md-12"> 
+            <div class="row">
+                <div class="col-md-6 mb-5">
+                    <p>And while you’re at it, why not make the most out of it? Every day is a fashion show, and the world is your runway—this includes the digital world, of course.</p>
+                    <p class="mb-2"><i class="material-icons mt-2 p-2">location_on</i>Trivandrum,Kerala,India</p>
+                    <p class="mb-2"><i class="material-icons mt-2 p-2">email</i>info@example.com</p>
+                    <p class="mb-0"><i class="material-icons mt-2 p-2">phone</i>+012 345 67890</p>
+                </div>
+        
+
+                    <!-- <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>        
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                        <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                        <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                        <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                        <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                        <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                    </div>
+                </div>
+                 <div class="col-md-4 mb-5">
+                    <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                        <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
+                        <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
+                        <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
+                        <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
+                        <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                    </div>
+                </div> -->
+                <div class="col-md-6 mb-5">
+                    <h5 class="font-weight-bold text-light mb-4">Newsletter</h5>
+                    <form action="">
+                        <div class="form-group">
+                            <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
+                                required="required" />
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+    </div>
+
+    
+    <div class="row border-top border-danger mx-xl-5 py-4">
+        <div class="col-md-6 px-xl-0">
+            <p class="mb-md-0 text-center text-md-left text-light">
+                &copy; <a class="text-light font-weight-semi-bold" href="/view-product">E-Shopper</a>. All Rights Reserved. Designed
+                by
+                <a class="text-light font-weight-semi-bold" href="https://htmlcodex.com">Mohammed Roshidh</a><br>
+                <!-- Distributed By <a href="https://themewagon.com" target="_blank"></a> -->
+            </p>
+        </div>
+            <div class="col-md-6 px-xl-0 text-center text-md-right">
+               <img class="img-fluid" src="img/payments.png" alt="">
+            </div>
+    </div>
+</div>
+
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-light back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Contact Javascript File -->
+<script src="mail/jqBootstrapValidation.min.js"></script>
+<script src="mail/contact.js"></script>
+
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+
+
+<!-- sweet alert -->
+
+</body>
+<!-- <script>
+    $(".delete").on("click", function(e) {
+    e.preventDefault()
+    var self = $(this)
+    Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    Swal.fire(
+      // 'Deleted!',
+      // 'Your file has been deleted.',
+      // 'success'
+      location.href =self.attr('href')
+    )
+  }
+})
+    })
+  </script> -->
+
+</html>

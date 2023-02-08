@@ -2,7 +2,7 @@
 
 
 
-                    <div class="container">
+                    
                         <br>
                         <div class="row">
                             <div class="col-xl-6 offset-xl-3">
@@ -37,7 +37,7 @@
                                             <div class="form-outline flex-fill mb-0">
                                                 <label class="form-label  select-label"  style="color:black; font-size: medium; font-weight: bolder;" for="form3Example1c">Category</label>
                                                 <select name="category"  style="background-color:black; color: white;"class="form-control">
-                                                    <option value="" disabled selected><%=product.category%></option>
+                                                    <option value="" disabled selected><%=productCategory.name%></option>
                                                     <% if(category){ %>
                                                         <% for(let i=1;i <=category.length; i++){ %>
                                                             <option value="<%= category[i-1]._id %>">
@@ -99,4 +99,3 @@
                 
                             </div>
                         </div>
-                    </div>

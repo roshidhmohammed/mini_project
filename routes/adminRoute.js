@@ -108,6 +108,10 @@ admin_route.get('/orderDetails', adminController.adminOrderDetails);
 admin_route.get('/editcategory',adminMiddleware.isLogin, adminController.editCategory)
 admin_route.post('/edit-category/:id',adminController.updateCategory)
 
+admin_route.get('/couponList', adminController.loadCoupon)
+admin_route.get('/block-coupon', adminController.blockCoupon)
+admin_route.get('/show-coupon', adminController.showCoupon)
+
 
 admin_route.get('/loadBanners',adminMiddleware.isLogin,adminController.getBanners)
 admin_route.post('/loadBanners',multer.upload.array('bannerImage',2),adminController.addBanner)
@@ -115,6 +119,8 @@ admin_route.get('/currentBanner',adminController.currentBanner)
 
 
 admin_route.get("/exportUsers",adminController.usersDownload);
+
+admin_route.get("/cropImage",adminController.imageCrops)
 
 admin_route.get('*', function(req,res){
 

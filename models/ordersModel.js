@@ -57,6 +57,11 @@ const orderSchema = new mongoose.Schema({
         immutable:true,
         default:()=>Date.now()
     },
+    discount:{
+        type:Number,
+        default:0
+
+    },
     products:{
         item:[{
             productId:{
@@ -82,6 +87,13 @@ const orderSchema = new mongoose.Schema({
     status:{
         type:String,
         default:'Attempted'
+    },
+    amount:{
+        type:Number
+    },
+    is_available:{
+        type:Number,
+        default:1
     }
 })
 

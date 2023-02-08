@@ -8,6 +8,10 @@ const Banner = require("../models/bannerModel");
 const bcrypt = require('bcrypt');
 const fast2sms =require("fast-two-sms");
 const RazorPay = require('razorpay');
+const pdf = require('html-pdf');
+const fs = require('fs');
+const path = require('path');
+const ejs = require('ejs');
 // const user_route = require('../routes/userRoute');
 
 
@@ -87,7 +91,7 @@ const verifyOtp = async(req,res)=>{
         const otp = newOtp
         const userData = await User.findById({_id:req.body.user})
         if(otp == req.body.otp){
-            userData.isVerified = 1
+            userData.is_verified = 1
             const user = await userData.save()
             if(user){
                 res.redirect('/login')
@@ -461,15 +465,69 @@ const userOrders = async (req,res) =>{
 
 const cancelOrder = async (req,res) => {
     try {
+        userSession = req.session
+        if(userSession.userId){
+            const id = req.query.id
+            const orderData = await Orders.findById({_id:id})
+        if(orderData.payment === "Razorpay"){
         
-        const id = req.query.id
-        await Orders.deleteOne({_id:id})
+        const orderDelete  = await Orders.findByIdAndUpdate({_id:id},{$set:{status:"Cancelled"}})
+        
+        const userData = await User.findByIdAndUpdate({_id:userSession.userId},{$set:{wallet:orderData.amount}})
+        // if(orderData.payment === "RAZORPAY"){
+        //     res.redirect('/wallet')
+        // }else  {
+            await orderDelete.save()
+            await userData.save()
+            console.log(orderData.payment)
         res.redirect('/orders')
+        // res.render('wallet',{ordersDelete:orderDelete,order:orderData,user:userData})
+        } else{
+            const id = req.query.id
+        const orderDelete  = await Orders.deleteOne({_id:id})
+        // const orderData = await Orders.findById({_id:id})
+        // await orderDelete.save()
+            res.redirect('/orders')
+        }
+        } else {
+            res.redirect('/login')
+        }
     } catch (error) {
         console.log(error.message)
         
     }
 }
+
+const wallet = async(req,res) => {
+    try {
+        userSession = req.session
+        if(userSession.userId){
+        const id = req.query.id
+        // const orderDelete  = await Orders.findByIdAndUpdate({_id:id},{$set:{status:"Cancelled"}})
+        // const orderData = await Orders.findById({_id:id})
+        // // console.log(orderData)
+        // const userData = await User.findById({_id:userSession.userId})
+        // console.log(orderData[0].payment)
+        // console.log(userData[0].wallet)
+        // if(orderData.payment === "COD"){
+            // res.render('wallet',{user:userData,order:orderData,orderDelete})
+        // }else  {
+        // res.redirect('/orders')
+        // }
+        // const id = req.query.id
+        const orderData = await Orders.find()
+        const userData = await User.findByIdAndUpdate({_id:userSession.userId},{$set:{wallet:orderData.amount}})
+        // await userData.save()
+        res.render('wallet',{user:userData})
+        } else {
+            res.redirect('/login')
+        }
+        }
+     catch (error) {
+        console.log(error.message)
+    }
+}
+
 
 const viewOrderDetail = async (req,res) =>{
     try {
@@ -686,18 +744,13 @@ const loadCheckout = async (req,res) => {
         const userSession = req.session
         if(userSession.userId) 
         {   
-            const id = req.query.addressid
-            // console.log("id:" + id)      
+            const id = req.query.addressid      
             const userData = await User.findById({_id: userSession.userId})
-            // console.log(userData);
             const completeUser = await userData.populate('cart.item.productId')
             const addressData = await Address.find({userId:userSession.userId})
             console.log("user:" +addressData)
             const selectAddress = await Address.findOne({_id:id})
             console.log("address:" + selectAddress)
-            // const updateAddresss = await Address.findOne({_id:id})
-            // console.log("update:" + updateAddresss)
-            // console.log(selectAddress);
             const offerData = await Offer.find()
             if(userSession.couponTotal == 0) {
                 userSession.couponTotal = userData.cart.totalPrice
@@ -718,6 +771,7 @@ const storeOrder = async (req,res) =>{
         if(userSession.userId) {
             const userData = await User.findById({_id:userSession.userId})
             const completeUser = await userData.populate('cart.item.productId')
+            // const completeOrder = await Orders.populate('products.totalPrice')
 
             const updatedTotal = await userData.save()
 
@@ -735,7 +789,9 @@ const storeOrder = async (req,res) =>{
                     city: req.body.city,
                     state: req.body.state,
                     zip:req.body.zip,
-                    products:completeUser.cart
+                    products:completeUser.cart,
+                    discount:userData.cart.totalPrice-userSession.couponTotal,
+                    amount:userSession.couponTotal
                 })
                 let orderProductStatus = []
                 for(let key of order.products.item) {
@@ -744,12 +800,12 @@ const storeOrder = async (req,res) =>{
                 const orderData = await order.save()
                 userSession.currentOrder = orderData._id
                 currentOrder = orderData._id
-                console.log(currentOrder)
+                // console.log(currentOrder)
                 const offerUpdate = await Offer.updateOne({name:userSession.offer.name},{$push:{usedBy:userSession.userId}})
                 if(req.body.payment == 'COD') {
                     res.redirect('/orderSuccess')
                 } else if(req.body.payment == 'Razorpay') {
-                    res.render('razorpay',{userId:userSession.userId,total:completeUser.cart.totalPrice,user:userData,offer:userSession.offer,offerUpdate})
+                    res.render('razorpay',{userId:userSession.userId,total:completeUser.cart.totalPrice,user:userData,offer:userSession.offer,offerUpdate,order:orderData})
                 } else if(req.body.payment == 'paypal'){
                     res.render('paypal',{userId:userSession.userId,total:completeUser.cart.totalPrice,user:userData})
                 } else {
@@ -902,7 +958,7 @@ const addCoupon = async (req,res) =>{
             const userData = await User.findById({_id:userSession.userId})
             const offerData = await Offer.findOne({name:req.body.offer})
             
-            console.log(userData.cart.totalPrice)
+            // console.log(userData.cart.totalPrice)
             // console.log(offerData.minimumBill)
             
             // let offername = req.body.offer
@@ -917,7 +973,13 @@ const addCoupon = async (req,res) =>{
                     // console.log('user:',userSession)
                     console.log("coupon already used")
                     userSession.offer.usedBy = true
-                    res.redirect('/checkout',{message:"coupon already used"})
+
+                    let updatedTotal = userData.cart.totalPrice
+                    userSession.couponTotal = updatedTotal
+                    // couponTotal = updatedTotal
+                    
+                    console.log("nocoupon" + couponTotal)
+                    res.redirect('/checkout')
                     
 
                 } else {
@@ -926,12 +988,15 @@ const addCoupon = async (req,res) =>{
                     userSession.offer.discount  = offerData.discount
                     userSession.offer.minimumBill = offerData.minimumBill
 
-                    if(userData.cart.totalPrice>=offerData.minimumBill) {
+                    // if(userData.cart.totalPrice>=offerData.minimumBill) {
                     let updatedTotal = userData.cart.totalPrice - (userData.cart.totalPrice*userSession.offer.discount)/100
                     // console.log("minimumbill checking")
 
                     userSession.couponTotal = updatedTotal
-                    }
+
+                    // couponTotal = updatedTotal
+                    // }
+                    console.log("coupon" + couponTotal)
                     res.redirect('/checkout')
 
 
@@ -948,6 +1013,69 @@ const addCoupon = async (req,res) =>{
             res.redirect('/checkout')
         }
 
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const downloadInvoice = async (req,res) => {
+    try {
+        userSession = req.session
+        if(userSession.userId) {
+            const id = req.query.id
+            const orderData = await Orders.findById({_id:id})
+        const userData = await User.findById({_id:userSession.userId})
+        await orderData.populate('products.item.productId')
+            userSession.currentOrder = id
+            const data = {
+                order: orderData
+            }
+            const filePathName = path.resolve(__dirname,'../views/users/invoiceToPdf.ejs')
+            const htmlString = fs.readFileSync(filePathName).toString();
+
+            let options = {
+                format: 'A3',
+                // orientation:"portrait",
+                // border:"10mm"
+
+            }
+
+
+            const ejsData = ejs.render(htmlString,data,userData)
+
+
+        // const filename = Math.random() + '_doc' + '.pdf';
+        // let array = [];
+        
+        
+         pdf.create(ejsData,options).toFile('invoice.pdf',(err,response)=>{
+         if(err) {
+            console.log(err)
+         } })
+
+        const filePath = path.resolve(__dirname,'../invoice.pdf');
+        fs.readFile(filePath,(err,file)=>{
+            if(err){
+                console.log(err);
+                return res.status(500).send('could not download file');
+            }
+            res.setHeader('content-type','application/pdf');
+            res.setHeader('content-disposition','attachment;filename="users.pdf"');
+
+            res.send(file);
+
+
+        })
+        //  res.render('orderProductDetail',{order:orderData,user:userData,couponTotal:userSession.couponTotal,offer:userSession.offer})
+
+
+        // orderData.forEach(orders=> {
+        //     const order= {
+
+        //     }
+
+        // })
+    }
     } catch (error) {
         console.log(error.message)
     }
@@ -1036,6 +1164,8 @@ module.exports = {
     userForgotPassword,
     addCoupon,
     returnProduct,
-    getCategoryProduct
+    getCategoryProduct,
+    downloadInvoice,
+    wallet
 
 }

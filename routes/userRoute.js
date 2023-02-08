@@ -60,6 +60,8 @@ user_route.get('/orders',auth.isLogin, userController.userOrders);
 user_route.get('/cancel-order',auth.isLogin, userController.cancelOrder);
 user_route.get('/orderProductDetail',auth.isLogin,userController.viewOrderDetail);
 
+user_route.get('/wallet',auth.isLogin,userController.wallet);
+
 user_route.get('/edit-user',auth.isLogin,userController.editUser);
 user_route.post('/edit-user',userController.updateUser)
 
@@ -101,6 +103,8 @@ user_route.get('/orderSuccess',auth.isLogin,userController.loadSuccess);
 
 
 user_route.get('/cancelProduct', userController.returnProduct)
+
+user_route.get('/export-invoice-pdf',auth.isLogin,userController.downloadInvoice)
 
 // user_route.get('/return-product',userController.returnProduct)
 

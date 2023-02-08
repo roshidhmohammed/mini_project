@@ -2,7 +2,18 @@
  
     
     <section>
-        <div class="container mt-4">
+        
+
+<!-- start -->
+            
+                <!-- <div class="row mt-4 ">
+                    <a href="/cropImage" class="btn btn-dark ml-auto" style="background-color:black; font-weight: bolder; color: white; ">Crop Image</a>
+      </div> -->
+
+    
+
+
+    <!-- end -->
             <div class="row">
 
                 <div class="col-md-6">
@@ -63,6 +74,12 @@
                                     <input type="text"  style="background-color:black; color: white;" name="stock" class="form-control"  placeholder="enter the stock" required>
                                 </div>
                                 <br>
+                                <!-- image crop -->
+                                
+                               
+
+                                <!-- end crop -->
+                                <br>
 
                                 <div img class="mb-4 form-floating" >
                                     <label for="floatingInput" style="color: black; font-weight: bolder;"> Upload Image</label>
@@ -75,6 +92,69 @@
                         
                 </div>
             </div>
-        </div>
+    
 
     </section> 
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropper.js/0.8.1/cropper.min.js"></script>
+<script>
+    let result = document.querySelector(".result");
+        img_result = document.querySelector(".img-result");
+        img_W = document.querySelector(".img-w");
+        img_h = document.querySelector(".img-h");
+        options = document.querySelector(".options");
+        save = document.querySelector(".save");
+        cropped = document.querySelector(".cropped");
+        dwn = document.querySelector(".download");
+        upload = document.querySelector("#file-input"),
+        cropper = "";
+
+        upload.addEventListener('change',(e) => {
+            console.log(e)
+            const reader = new FileReader();
+            reader.onload = (e) =>{
+                if(e.target.result) {
+                    // create new image
+                    let image = document.createElement("img");
+                    img.id = "image";
+                    img.src = e.target.result;
+                    // clean result before
+                    result.innerHtml = "",
+                    // append new image
+                    result.appendChild(img);
+                    // show save btn and options
+                    save.classList.remove("hide")
+                    options.classList.remove("hide")
+                    // init cropper
+                    cropper = new cropper(img);
+
+                }
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        })
+
+        // save the button crop the image
+
+        save.addEventListener("click", (e) =>{
+            e.preventDefault();
+
+            // get result to data url
+            let imgSrc = cropper
+            .getCroppedCanvas({
+                width:img_W.value
+            })
+            .toDataURL();
+            console.log(imgSrc)
+
+            // remove hide class of img
+            cropped.classList.remove("hide");
+            img_result.classList("hide");
+            // show image cropped
+            cropped.src = imgSrc;
+            dwn.classList.remove("hide");
+            dwn.download = "imagename.png";
+            dwn.setAttribute("href",imgSrc);
+        });
+</script>
+</html>
